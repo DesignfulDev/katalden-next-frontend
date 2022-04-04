@@ -1,4 +1,3 @@
-import SidebarNavItem from './SidebarNavItem';
 import Sidebar from './Sidebar';
 
 export default function Main() {
