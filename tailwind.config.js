@@ -10,6 +10,15 @@ module.exports = {
       fontFamily: {
         sans: ['Jost', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        brand: {
+          light: '#AA7DA4',
+          DEFAULT: '#7D61A1',
+          dark: '#492E75',
+          black: '#1E2020',
+          white: '#F2EFF5',
+        },
+      },
     },
   },
   plugins: [],
