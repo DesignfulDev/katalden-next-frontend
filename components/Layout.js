@@ -4,7 +4,7 @@ import Main from './Main';
 
 export default function Layout({ title, keywords, description, children }) {
   return (
-    <div className="h-screen border-2 border-blue-500">
+    <div className="h-screen bg-brand-white text-brand-black">
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords} />
