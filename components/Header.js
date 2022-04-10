@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import GalleryNav from './GalleryNav';
-import ButtonCta from './ButtonCta';
+import BtnPrimary from './BtnPrimary';
 
 export default function Header() {
   return (
-    <header className="mx-auto flex flex-wrap px-5 flex-col md:flex-row justify-between self-start border-2 border-rose-600 h-1/6">
+    <header className="mx-auto flex flex-wrap px-5 flex-col md:flex-row justify-between self-start h-1/6">
       <Link href="/">
         <a className="flex items-center">
           <Image
@@ -19,7 +19,7 @@ export default function Header() {
 
       <GalleryNav />
 
-      <ButtonCta btnText="Agendar Tattoo" />
+      <BtnPrimary btnText="Agendar Tattoo" linkTo="/" />
     </header>
   );
 }
