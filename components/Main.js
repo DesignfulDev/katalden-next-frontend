@@ -3,8 +3,8 @@ import Gallery from './Gallery';
 
 export default function Main() {
   return (
-    <div className="mx-auto flex h-5/6">
-      <Sidebar />
+    <div className="border border-red-600 mx-auto flex flex-auto w-full">
+      {/* <Sidebar /> */}
 
       <Gallery />
     </div>

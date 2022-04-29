@@ -1,23 +1,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import GalleryNav from './GalleryNav';
+import { MenuAlt3Icon } from '@heroicons/react/outline';
 import BtnPrimary from './BtnPrimary';
 
 export default function Header() {
   return (
-    <header className="mx-auto flex flex-wrap px-5 flex-col md:flex-row justify-between self-start h-1/6">
-      <Link href="/">
-        <a className="flex items-center">
-          <Image
-            src="/images/logo-black.svg"
-            width={140}
-            height={100}
-            alt="Logo"
-          />
-        </a>
-      </Link>
+    <header className="flex flex-initial h-14 justify-between">
+      <div className="mx-3 relative w-14">
+        <Link href="/">
+          <a>
+            <Image
+              src="/images/logo-black.svg"
+              layout="fill"
+              objectFit="contain"
+              alt="Logo"
+            />
+          </a>
+        </Link>
+      </div>
 
-      <GalleryNav />
+      <MenuAlt3Icon className="h-8 self-center px-3" />
 
       <BtnPrimary btnText="Agendar Tattoo" linkTo="/" />
     </header>
