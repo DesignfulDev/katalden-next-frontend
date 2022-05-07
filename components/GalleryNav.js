@@ -2,7 +2,7 @@ import GalleryNavItem from './GalleryNavItem';
 
 export default function GalleryNav() {
   return (
-    <nav className="flex flex-initial justify-around items-center p-3 mt-3">
+    <nav className="w-full flex justify-around items-center h-8">
       <GalleryNavItem linkRef="/tattoo" linkText="tattoo" />
       <GalleryNavItem linkRef="/fotografia" linkText="fotografia" />
       <GalleryNavItem linkRef="/roupas" linkText="roupas" />

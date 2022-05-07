@@ -13,7 +13,6 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="description" content={description} />
       </Head>
       <Header />
-      <GalleryNav />
       <Main />
     </div>
   );
