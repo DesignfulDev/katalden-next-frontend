@@ -2,14 +2,14 @@ import SidebarNavItem from './SidebarNavItem';
 
 export default function SidebarNav() {
   return (
-    <nav>
-      <ul className="pl-10 py-10">
-        <SidebarNavItem linkRef="/sobre" linkText="sobre mim" />
-        <SidebarNavItem linkRef="/loja" linkText="loja" />
-        <SidebarNavItem linkRef="/newsletter" linkText="newsletter" />
-        <SidebarNavItem linkRef="/blog" linkText="blog" />
-        <SidebarNavItem linkRef="/instagram" linkText="instagram" />
-        <SidebarNavItem linkRef="/contato" linkText="contato" />
+    <nav className="w-full text-center">
+      <ul className="text-3xl font-light lowercase tracking-wide">
+        <SidebarNavItem linkPath="/sobre">sobre mim</SidebarNavItem>
+        <SidebarNavItem linkPath="/loja">loja</SidebarNavItem>
+        <SidebarNavItem linkPath="/newsletter">newsletter</SidebarNavItem>
+        <SidebarNavItem linkPath="/blog">blog</SidebarNavItem>
+        <SidebarNavItem linkPath="/instagram">instagram</SidebarNavItem>
+        <SidebarNavItem linkPath="/contato">contato</SidebarNavItem>
       </ul>
     </nav>
   );
