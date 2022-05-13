@@ -3,11 +3,11 @@ import Image from 'next/image';
 import { MenuAlt3Icon } from '@heroicons/react/outline';
 import GalleryNav from './GalleryNav';
 
-export default function Header() {
+export default function Header({ toggle }) {
   return (
     <header className="fixed w-full z-10 bg-brand-white">
       <div className="w-full flex justify-between items-center h-20">
-        <Link href="/">
+        <Link href="/tattoo">
           <a className="relative mx-3">
             <Image
               src="/images/logo-black.svg"
@@ -18,7 +18,9 @@ export default function Header() {
           </a>
         </Link>
 
-        <MenuAlt3Icon className="h-8 px-3" />
+        <button onClick={toggle}>
+          <MenuAlt3Icon className="h-8 px-3" />
+        </button>
       </div>
 
       <GalleryNav />

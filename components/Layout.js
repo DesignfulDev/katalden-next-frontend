@@ -1,10 +1,15 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Header from './Header';
-import Main from './Main';
-import GalleryNav from './GalleryNav';
 import Sidebar from './Sidebar';
 
 export default function Layout({ title, keywords, description, children }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-brand-white text-brand-black">
       <Head>
@@ -12,8 +17,12 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="keywords" content={keywords} />
         <meta name="description" content={description} />
       </Head>
-      <Header />
-      <Main />
+      <Header toggle={toggle} />
+      <Sidebar isOpen={isOpen} toggle={toggle} />
+
+      <main className="border border-red-600 mx-auto mt-28 w-full">
+        {children}
+      </main>
     </div>
   );
 }
