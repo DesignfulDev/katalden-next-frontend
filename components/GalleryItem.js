@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function GalleryItem() {
   return (
-    <div className="h-80 w-full relative">
+    <div className="w-full aspect-square relative cursor-pointer">
       <Image
         src={`https://picsum.photos/seed/${Math.random()}/420/550`}
         alt="lorem picsum"

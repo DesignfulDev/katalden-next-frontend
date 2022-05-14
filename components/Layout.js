@@ -20,9 +20,7 @@ export default function Layout({ title, keywords, description, children }) {
       <Header toggle={toggle} />
       <Sidebar open={open} toggle={toggle} />
 
-      <main className="border border-red-600 mx-auto mt-28 w-full">
-        {children}
-      </main>
+      <main className="mx-auto mt-28 w-full">{children}</main>
     </div>
   );
 }
