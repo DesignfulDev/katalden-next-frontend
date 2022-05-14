@@ -1,5 +1,6 @@
 import { XIcon } from '@heroicons/react/outline';
 import SidebarNav from './SidebarNav';
+import Copyright from './Copyright';
 
 export default function Sidebar({ open, toggle }) {
   return (
@@ -13,10 +14,8 @@ export default function Sidebar({ open, toggle }) {
         <XIcon />
       </button>
       <SidebarNav />
-      <div className="mx-auto text-center py-5 font-light text-sm ">
-        <p className="uppercase">Copyright &copy; Katharine Alden</p>
-        <p className="pt-1">All Rights Reserved</p>
-      </div>
+
+      <Copyright />
     </div>
   );
 }
