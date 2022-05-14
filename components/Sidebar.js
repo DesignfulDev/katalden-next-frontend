@@ -1,13 +1,13 @@
 import { XIcon } from '@heroicons/react/outline';
 import SidebarNav from './SidebarNav';
 
-export default function Sidebar({ isOpen, toggle }) {
+export default function Sidebar({ open, toggle }) {
   return (
     <div
       className={`fixed left-0 w-full z-20 min-h-screen bg-brand-white flex flex-col justify-between items-center ${
-        !isOpen && 'translate-y-full'
+        !open && 'translate-y-full'
       } transform transition duration-300`}
-      isOpen={isOpen}
+      open={open}
     >
       <button className="w-10 self-end h-20 mx-3" onClick={toggle}>
         <XIcon />

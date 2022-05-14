@@ -4,10 +4,10 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 
 export default function Layout({ title, keywords, description, children }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggle = () => {
-    setIsOpen(!isOpen);
+    setOpen(!open);
   };
 
   return (
@@ -18,7 +18,7 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="description" content={description} />
       </Head>
       <Header toggle={toggle} />
-      <Sidebar isOpen={isOpen} toggle={toggle} />
+      <Sidebar open={open} toggle={toggle} />
 
       <main className="border border-red-600 mx-auto mt-28 w-full">
         {children}
