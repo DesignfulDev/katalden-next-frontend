@@ -17,7 +17,9 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="keywords" content={keywords} />
         <meta name="description" content={description} />
       </Head>
+
       <Header toggle={toggle} />
+
       <Sidebar open={open} toggle={toggle} />
 
       <main className="mx-auto mt-28 w-full">{children}</main>
