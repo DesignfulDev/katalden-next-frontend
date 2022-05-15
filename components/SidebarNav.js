@@ -8,7 +8,15 @@ export default function SidebarNav() {
         <SidebarNavItem linkPath="/loja">loja</SidebarNavItem>
         <SidebarNavItem linkPath="/newsletter">newsletter</SidebarNavItem>
         <SidebarNavItem linkPath="/blog">blog</SidebarNavItem>
-        <SidebarNavItem linkPath="/instagram">instagram</SidebarNavItem>
+        <li className="py-4">
+          <a
+            href="https://instagram.com/katalden"
+            target="_blank"
+            rel="noreferrer"
+          >
+            instagram
+          </a>
+        </li>
         <SidebarNavItem linkPath="/contato">contato</SidebarNavItem>
       </ul>
     </nav>
