@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Layout({ title, keywords, description, children }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,9 @@ export default function Layout({ title, keywords, description, children }) {
 
       <Header toggle={toggle} />
 
-      <Sidebar open={open} toggle={toggle} />
+      <AnimatePresence exitBeforeEnter>
+        {open && <Sidebar toggle={toggle} />}
+      </AnimatePresence>
 
       <main className="mx-auto mt-28 w-full">{children}</main>
     </div>
