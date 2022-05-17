@@ -1,10 +1,10 @@
 import Modal from './Modal';
 import SidebarNav from './SidebarNav';
 
-export default function Sidebar({ toggle }) {
+export default function Sidebar() {
   return (
-    <Modal toggle={toggle}>
+    <>
       <SidebarNav />
-    </Modal>
+    </>
   );
 }

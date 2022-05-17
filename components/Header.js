@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MenuAlt3Icon } from '@heroicons/react/outline';
 import GalleryNav from './GalleryNav';
 
-export default function Header({ toggle }) {
+export default function Header({ setShowModal }) {
   return (
     <header className="fixed w-full z-10 bg-brand-white">
       <div className="w-full flex justify-between items-center h-20">
@@ -18,7 +18,7 @@ export default function Header({ toggle }) {
           </a>
         </Link>
 
-        <button onClick={toggle}>
+        <button onClick={() => setShowModal(true)}>
           <MenuAlt3Icon className="h-8 px-3" />
         </button>
       </div>

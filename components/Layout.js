@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Header from './Header';
+import { AnimatePresence } from 'framer-motion';
+import Modal from './Modal';
+import SidebarNav from './SidebarNav';
 import Sidebar from './Sidebar';
-import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Layout({ title, keywords, description, children }) {
-  const [open, setOpen] = useState(false);
-
-  const toggle = () => {
-    setOpen(!open);
-  };
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="flex flex-col h-screen bg-brand-white text-brand-black">
@@ -19,10 +17,14 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="description" content={description} />
       </Head>
 
-      <Header toggle={toggle} />
+      <Header setShowModal={setShowModal} />
 
-      <AnimatePresence exitBeforeEnter>
-        {open && <Sidebar toggle={toggle} />}
+      <AnimatePresence>
+        {showModal && (
+          <Modal show={showModal} onClose={() => setShowModal(false)}>
+            <Sidebar />
+          </Modal>
+        )}
       </AnimatePresence>
 
       <main className="mx-auto mt-28 w-full">{children}</main>
