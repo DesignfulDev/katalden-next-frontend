@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Modal from './Modal';
 import { AnimatePresence } from 'framer-motion';
+import Modal from './Modal';
 import SobreContent from '../pages/sobre';
 
 export default function Sidebar() {
