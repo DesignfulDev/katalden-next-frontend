@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Header from './Header';
 import { AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
-import SidebarNav from './SidebarNav';
 import Sidebar from './Sidebar';
 
 export default function Layout({ title, keywords, description, children }) {

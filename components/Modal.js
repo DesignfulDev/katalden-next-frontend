@@ -4,7 +4,7 @@ import { XIcon } from '@heroicons/react/outline';
 import Copyright from './Copyright';
 import { motion } from 'framer-motion';
 
-export default function Modal({ toggle, show, onClose, children, title }) {
+export default function Modal({ show, onClose, children, title }) {
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => setIsBrowser(true), []);
