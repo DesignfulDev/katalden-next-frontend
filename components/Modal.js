@@ -4,7 +4,7 @@ import { XIcon } from '@heroicons/react/outline';
 import Copyright from './Copyright';
 import { motion } from 'framer-motion';
 
-export default function Modal({ show, onClose, children, title }) {
+export default function Modal({ show, onClose, children, heading }) {
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => setIsBrowser(true), []);
@@ -15,10 +15,10 @@ export default function Modal({ show, onClose, children, title }) {
   };
 
   const moveInUp = {
-    initial: {
+    hidden: {
       y: '100%',
     },
-    animate: {
+    visible: {
       y: 0,
     },
   };
@@ -27,22 +27,28 @@ export default function Modal({ show, onClose, children, title }) {
     <motion.div
       className="fixed left-0 top-0 w-full z-10 min-h-screen bg-brand-white flex flex-col justify-between items-center"
       variants={moveInUp}
-      initial="initial"
-      animate="animate"
-      exit="initial"
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       transition={{ duration: 0.2 }}
     >
-      <a
-        href="#"
-        onClick={handleClose}
-        className="flex items-center w-10 self-end h-20 mx-3"
-      >
-        <XIcon />
-      </a>
+      <header className="sticky left-0 top-0 w-full flex flex-col justify-between items-center bg-brand-white z-30">
+        <a
+          className="flex items-center w-10 self-end h-20 mx-3"
+          onClick={handleClose}
+          href="#"
+        >
+          <XIcon />
+        </a>
 
-      {title && <div>{title}</div>}
+        {heading && (
+          <h1 className="text-4xl font-light lowercase tracking-wide pb-4">
+            {heading}
+          </h1>
+        )}
+      </header>
 
-      <div>{children}</div>
+      <div className="w-full m-auto">{children}</div>
 
       <Copyright />
     </motion.div>
