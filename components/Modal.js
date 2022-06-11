@@ -25,14 +25,14 @@ export default function Modal({ show, onClose, children, heading }) {
 
   const modalContent = show ? (
     <motion.div
-      className="fixed left-0 top-0 w-full z-10 min-h-screen bg-brand-white flex flex-col justify-between items-center"
+      className="fixed inset-0 w-full z-10 min-h-screen bg-brand-white flex flex-col justify-between items-center"
       variants={moveInUp}
       initial="hidden"
       animate="visible"
       exit="hidden"
       transition={{ duration: 0.2 }}
     >
-      <header className="sticky left-0 top-0 w-full flex flex-col justify-between items-center bg-brand-white z-30">
+      <header className="w-full flex flex-col justify-between items-center bg-brand-white z-30">
         <a
           className="flex items-center w-10 self-end h-20 mx-3"
           onClick={handleClose}
