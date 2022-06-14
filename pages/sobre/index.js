@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Modal from '../../components/Modal';
 import SobreContent from './SobreContent';
+import Layout from '../../components/Layout';
+import Copyright from '../../components/Copyright';
 
 export default function SobrePage() {
   const [showModal, setShowModal] = useState(true);
@@ -9,15 +11,13 @@ export default function SobrePage() {
   const router = useRouter();
 
   return (
-    <Modal
-      show={showModal}
-      onClose={() => {
-        setShowModal(false);
-        router.back();
-      }}
-      heading="sobre mim"
-    >
-      <SobreContent />
-    </Modal>
+    <Layout>
+      <div className="flex flex-col items-center bg-brand-white">
+        <h1 className="text-3xl lowercase ">sobre mim</h1>
+        <SobreContent />
+
+        <Copyright />
+      </div>
+    </Layout>
   );
 }
