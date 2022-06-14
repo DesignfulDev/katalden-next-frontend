@@ -23,7 +23,7 @@ export default function Header({ setShowModal }) {
         </button>
       </div>
 
-      <GalleryNav />
+      {/* <GalleryNav /> */}
     </header>
   );
 }
