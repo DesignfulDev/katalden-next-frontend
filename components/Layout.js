@@ -26,7 +26,7 @@ export default function Layout({ title, keywords, description, children }) {
         )}
       </AnimatePresence>
 
-      <main className="mx-auto mt-28 w-full">{children}</main>
+      <main className="mx-auto mt-28 w-full h-full">{children}</main>
     </div>
   );
 }
