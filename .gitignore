@@ -33,3 +33,6 @@ yarn-error.log*
 
 #Developer configs
 /.vscode/
+/public/images/sample/
+/pages/api/*/
+/pages/api/*.json
