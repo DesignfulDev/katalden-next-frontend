@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MenuAlt3Icon } from '@heroicons/react/outline';
 import GalleryNav from './GalleryNav';
 
 export default function Header({ setShowModal }) {
+  const router = useRouter();
+
   return (
     <header className="fixed w-full z-10 bg-brand-white">
       <div className="w-full flex justify-between items-center h-20">
@@ -23,7 +26,7 @@ export default function Header({ setShowModal }) {
         </button>
       </div>
 
-      {/* <GalleryNav /> */}
+      {router.pathname === '/tattoo' && <GalleryNav />}
     </header>
   );
 }
