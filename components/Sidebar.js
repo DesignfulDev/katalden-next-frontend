@@ -1,15 +1,31 @@
-import SidebarNavItem from '../components/SidebarNavItem';
+import Link from 'next/link';
 
-export default function Sidebar() {
+const links = [
+  { url: '/tattoo', text: 'galerias' },
+  { url: '/sobre', text: 'sobre mim' },
+  { url: '/contato', text: 'contato' },
+  { url: '/newsletter', text: 'newsletter' },
+  { url: '/blog', text: 'blog' },
+  { url: '/loja', text: 'loja' },
+];
+
+export default function Sidebar({ onClose }) {
+  const handleClose = e => {
+    e.preventDefault();
+    onClose();
+  };
+
   return (
     <div>
       <nav className="w-full text-center">
         <ul className="text-3xl font-light lowercase tracking-wide">
-          <SidebarNavItem linkPath="/tattoo">galerias</SidebarNavItem>
-          <SidebarNavItem linkPath="/sobre">sobre mim</SidebarNavItem>
-          <SidebarNavItem linkPath="/loja">loja</SidebarNavItem>
-          <SidebarNavItem linkPath="/newsletter">newsletter</SidebarNavItem>
-          <SidebarNavItem linkPath="/blog">blog</SidebarNavItem>
+          {links.map(link => (
+            <li key={link.url} onClick={handleClose} className="py-4">
+              <Link href={link.url} scroll={false}>
+                <a>{link.text}</a>
+              </Link>
+            </li>
+          ))}
 
           <li className="py-4">
             <a
@@ -20,8 +36,6 @@ export default function Sidebar() {
               instagram
             </a>
           </li>
-
-          <SidebarNavItem linkPath="/contato">contato</SidebarNavItem>
         </ul>
       </nav>
     </div>

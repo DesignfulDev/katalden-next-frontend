@@ -9,7 +9,7 @@ export default function Layout({ title, keywords, description, children }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-brand-white text-brand-black">
+    <div className="overflow-y-scroll flex flex-col h-screen bg-brand-white text-brand-black">
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords} />
@@ -21,7 +21,7 @@ export default function Layout({ title, keywords, description, children }) {
       <AnimatePresence>
         {showModal && (
           <Modal show={showModal} onClose={() => setShowModal(false)}>
-            <Sidebar />
+            <Sidebar onClose={() => setShowModal(false)} />
           </Modal>
         )}
       </AnimatePresence>
