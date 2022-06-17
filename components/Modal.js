@@ -16,21 +16,21 @@ export default function Modal({ isOpen, closeModal, title, children }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-brand-black bg-opacity-50" />
+            <div className="md:fixed md:inset-0 md:bg-brand-black md:bg-opacity-50" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-90"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-90"
+                enter="transform ease-out duration-300"
+                enterFrom="translate-y-full"
+                enterTo="translaste-y-0"
+                leave="transform ease-in duration-200"
+                leaveFrom="translate-y-0"
+                leaveTo="translate-y-full"
               >
-                <Dialog.Panel className="fixed inset-0 w-full z-10 min-h-screen bg-brand-white">
+                <Dialog.Panel className="fixed inset-0 w-full z-10 min-h-screen bg-brand-white supports-backdrop:bg-brand-white/70 supports-backdrop:backdrop-blur-md">
                   <button
                     type="button"
                     onClick={closeModal}
