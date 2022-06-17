@@ -66,7 +66,7 @@ export default function ContactPage() {
                   leaveFrom="opacity-100 translate-y-0"
                   leaveTo="opacity-0 translate-y-[-3rem]"
                 >
-                  <Listbox.Options className="absolute -mt-3 ml-5 max-h-60 overflow-auto rounded-md bg-white py-2 px-4 shadow-lg">
+                  <Listbox.Options className="absolute -mt-3 ml-5 max-h-60 overflow-auto rounded-md bg-white py-2 px-6 shadow-lg">
                     {options.slice(1).map(opt => (
                       <Listbox.Option
                         key={opt.id}
@@ -110,7 +110,8 @@ export default function ContactPage() {
               id=""
               cols="25"
               rows="6"
-              className="rounded-3xl border-2 border-brand bg-brand-white w-full p-5"
+              placeholder="Mensagem"
+              className="rounded-3xl border-2 border-brand bg-brand-white placeholder:italic w-full p-4"
             ></textarea>
           </div>
 
