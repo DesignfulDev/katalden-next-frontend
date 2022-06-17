@@ -13,7 +13,7 @@ export default function NewsletterPage() {
         <form className="flex flex-col items-center w-full h-full justify-between pb-10">
           <input
             type="email"
-            placeholder="seu@email.com"
+            placeholder="E-mail"
             className="border-2 border-brand bg-brand-white placeholder:italic placeholder:text-gray-400 w-full py-2 px-4 mb-10 rounded-full"
           />
           <button className="px-16 py-3 rounded-full bg-brand hover:bg-brand-light active:bg-brand-dark text-brand-white text-lg lowercase">
