@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Copyright from './Copyright';
 
 const links = [
   { url: '/tattoo', text: 'galerias' },
@@ -16,8 +17,8 @@ export default function Sidebar({ onClose }) {
   };
 
   return (
-    <div>
-      <nav className="w-full text-center">
+    <div className="flex flex-wrap h-screen justify-center">
+      <nav className="w-full self-center mt-24">
         <ul className="text-3xl font-light lowercase tracking-wide">
           {links.map(link => (
             <li key={link.url} onClick={handleClose} className="py-4">
@@ -38,6 +39,9 @@ export default function Sidebar({ onClose }) {
           </li>
         </ul>
       </nav>
+      <div className="self-end">
+        <Copyright />
+      </div>
     </div>
   );
 }
