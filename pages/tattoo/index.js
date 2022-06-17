@@ -8,20 +8,26 @@ import { API_URL } from '../../config/index';
 
 export default function TattooPage({ tattoos }) {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
-  useEffect(() => router.query.id && setShowModal(true), [router]);
 
-  const handleClose = () => {
-    setShowModal(false);
-    router.push('/tattoo');
-  };
+  let [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => router.query.id && setIsOpen(true), [router]);
+
+  function closeModal() {
+    setIsOpen(false);
+    router.back();
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <div>
       <Layout>
         {router.query.id && (
-          <Modal show={showModal} onClose={handleClose}>
-            <div className="w-full aspect-square relative cursor-pointer">
+          <Modal isOpen={isOpen} closeModal={closeModal}>
+            <div className="w-full aspect-square relative">
               <Image
                 src={
                   tattoos.filter(tt => tt.id === router.query.id)[0].images[0]

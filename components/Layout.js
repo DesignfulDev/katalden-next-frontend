@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Header from './Header';
-import { AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
 import Sidebar from './Sidebar';
 
 export default function Layout({ title, keywords, description, children }) {
-  const [showModal, setShowModal] = useState(false);
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <div className="overflow-y-scroll flex flex-col h-screen bg-brand-white text-brand-black">
@@ -16,15 +23,11 @@ export default function Layout({ title, keywords, description, children }) {
         <meta name="description" content={description} />
       </Head>
 
-      <Header setShowModal={setShowModal} />
+      <Header openModal={openModal} />
 
-      <AnimatePresence>
-        {showModal && (
-          <Modal show={showModal} onClose={() => setShowModal(false)}>
-            <Sidebar onClose={() => setShowModal(false)} />
-          </Modal>
-        )}
-      </AnimatePresence>
+      <Modal isOpen={isOpen} closeModal={closeModal}>
+        <Sidebar onClose={closeModal} />
+      </Modal>
 
       <main className="mx-auto mt-28 w-full h-full">{children}</main>
     </div>
