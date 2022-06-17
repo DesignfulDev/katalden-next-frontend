@@ -18,10 +18,6 @@ export default function TattooPage({ tattoos }) {
     router.back();
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <div>
       <Layout>
