@@ -44,7 +44,7 @@ export default function ContactPage() {
                 <Listbox.Button className="relative border-2 border-brand bg-brand-white rounded-full py-2 px-4 mb-4 w-full text-left">
                   <span
                     className={`block truncate ${
-                      selected.id === 0 ? 'text-gray-400' : null
+                      selected.id === 0 ? 'text-gray-400 italic' : null
                     }`}
                   >
                     {selected.option}
