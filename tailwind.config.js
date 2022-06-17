@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: [
@@ -21,5 +22,14 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // https://github.com/tailwindlabs/discuss/issues/129
+    // https://tailwindcss.com/docs/plugins#adding-variants
+    plugin(function ({ addVariant }) {
+      addVariant(
+        'supports-backdrop',
+        '@supports (backdrop-filter: blur(12px))'
+      );
+    }),
+  ],
 };
