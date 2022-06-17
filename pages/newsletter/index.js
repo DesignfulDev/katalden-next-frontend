@@ -5,7 +5,7 @@ export default function NewsletterPage() {
   return (
     <Layout>
       <div className="flex flex-col items-center px-8 h-full">
-        <h1 className="text-3xl lowercase">Newsletter</h1>
+        <h1 className="text-3xl lowercase font-thin">Newsletter</h1>
         <p className="text-xl font-light mt-16 mb-10">
           Assine e receba informações de agenda de tattoo, viagens e meus
           trabalhos mais recentes direto no seu e-mail.
