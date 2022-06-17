@@ -7,6 +7,8 @@ import GalleryNav from './GalleryNav';
 export default function Header({ openModal }) {
   const router = useRouter();
 
+  const galleries = ['/tattoo', '/fotografia', '/roupas'];
+
   return (
     <header className="fixed w-full z-10 bg-brand-white">
       <div className="w-full flex justify-between items-center h-20">
@@ -26,7 +28,7 @@ export default function Header({ openModal }) {
         </button>
       </div>
 
-      {router.pathname === '/tattoo' && <GalleryNav />}
+      {galleries.includes(router.pathname) && <GalleryNav />}
     </header>
   );
 }
