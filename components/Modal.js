@@ -1,65 +1,60 @@
-import { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import Copyright from './Copyright';
-import { motion } from 'framer-motion';
 
-export default function Modal({ show, onClose, children, heading }) {
-  const [isBrowser, setIsBrowser] = useState(false);
+export default function Modal({ isOpen, closeModal, title, children }) {
+  return (
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-brand-black bg-opacity-50" />
+          </Transition.Child>
 
-  useEffect(() => setIsBrowser(true), []);
+          <div className="fixed inset-0 overflow-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-90"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-90"
+              >
+                <Dialog.Panel className="fixed inset-0 w-full z-10 min-h-screen bg-brand-white">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="fixed right-0 top-0 w-12 h-12 pr-3 pt-3 z-10"
+                  >
+                    <XIcon />
+                  </button>
 
-  const handleClose = e => {
-    e.preventDefault();
-    onClose();
-  };
+                  {title && (
+                    <Dialog.Title
+                      as="h3"
+                      className="text-4xl font-light lowercase tracking-wide pb-4 mt-24"
+                    >
+                      {title}
+                    </Dialog.Title>
+                  )}
 
-  const moveInUp = {
-    hidden: {
-      y: '100%',
-    },
-    visible: {
-      y: 0,
-    },
-  };
-
-  const modalContent = show ? (
-    <motion.div
-      className="fixed inset-0 w-full z-10 min-h-screen bg-brand-white flex flex-col justify-between items-center"
-      variants={moveInUp}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      transition={{ duration: 0.2 }}
-    >
-      <header className="w-full flex flex-col justify-between items-center bg-brand-white z-30">
-        <a
-          className="flex items-center w-10 self-end h-20 mx-3"
-          onClick={handleClose}
-          href="#"
-        >
-          <XIcon />
-        </a>
-
-        {heading && (
-          <h1 className="text-4xl font-light lowercase tracking-wide pb-4">
-            {heading}
-          </h1>
-        )}
-      </header>
-
-      <div className="w-full m-auto">{children}</div>
-
-      <Copyright />
-    </motion.div>
-  ) : null;
-
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')
-    );
-  } else {
-    return null;
-  }
+                  {children}
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
+  );
 }
