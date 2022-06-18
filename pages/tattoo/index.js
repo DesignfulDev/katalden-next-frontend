@@ -7,7 +7,7 @@ import Modal from '../../components/Modal';
 import ImageSlider from '../../components/ImageSlider';
 import { API_URL } from '../../config/index';
 
-export default function TattooPage({ tattoos }) {
+export default function TattoosPage({ tattoos }) {
   const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);

@@ -3,7 +3,7 @@ import { API_URL } from '../../config/index';
 import Layout from '../../components/Layout';
 import ImageSlider from '../../components/ImageSlider';
 
-export default function TattooCard({ tattoo }) {
+export default function TattooPage({ tattoo }) {
   return (
     <div>
       <Layout>
