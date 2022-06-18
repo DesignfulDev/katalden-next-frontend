@@ -34,7 +34,7 @@ export default function Modal({ isOpen, closeModal, title, children }) {
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="fixed right-0 top-0 w-12 h-12 pr-3 pt-3 z-10"
+                    className="fixed right-0 top-0 w-12 h-12 pr-3 pt-3 z-20"
                   >
                     <XIcon />
                   </button>

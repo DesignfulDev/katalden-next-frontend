@@ -1,18 +1,18 @@
 import Image from 'next/image';
-import Layout from '../../components/Layout';
 import { API_URL } from '../../config/index';
+import Layout from '../../components/Layout';
+import ImageSlider from '../../components/ImageSlider';
 
 export default function TattooCard({ tattoo }) {
   return (
     <div>
       <Layout>
-        <div className="w-full aspect-square relative cursor-pointer">
-          <Image
-            src={tattoo.images[0].url}
-            alt="lorem picsum"
-            layout="fill"
-            objectFit="cover"
-          />
+        <ImageSlider images={tattoo.images} />
+        <div>
+          <span>cliente</span>
+          <span>estúdio</span>
+          <span>data</span>
+          <span>sessões</span>
         </div>
       </Layout>
     </div>
