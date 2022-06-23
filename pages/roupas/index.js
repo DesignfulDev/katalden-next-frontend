@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal';
 import ImageSlider from '../../components/ImageSlider';
+import Copyright from '../../components/Copyright';
+import { ChevronDownIcon } from '@heroicons/react/outline';
 import { API_URL } from '../../config/index';
 
 export default function ClothingPage({ clothing }) {
@@ -24,12 +26,66 @@ export default function ClothingPage({ clothing }) {
       <Layout>
         {router.query.id && (
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <ImageSlider
-              images={
-                clothing.filter(product => product.id === router.query.id)[0]
-                  .images
-              }
-            />
+            <div className="bg-brand-white flex flex-col min-h-screen">
+              <div>
+                <ImageSlider
+                  images={
+                    clothing.filter(
+                      product => product.id === router.query.id
+                    )[0].images
+                  }
+                />
+              </div>
+              <div className="grow p-7 text-left text-xl font-thin overflow-y-scroll">
+                <ul className="mb-6">
+                  <li className="flex justify-between py-1">
+                    <span>peça</span>
+                    <span className="uppercase font-normal">
+                      {
+                        clothing.filter(
+                          product => product.id === router.query.id
+                        )[0].nomePeca
+                      }
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>material</span>
+                    <span className="uppercase font-normal">
+                      {
+                        clothing.filter(
+                          product => product.id === router.query.id
+                        )[0].material
+                      }
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>preço</span>
+                    <span className="uppercase font-normal">
+                      R<>&#36;</>{' '}
+                      {
+                        clothing.filter(
+                          product => product.id === router.query.id
+                        )[0].preco
+                      }
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>tamanho</span>
+                    <span className="uppercase font-normal text-gray-400">
+                      escolher <ChevronDownIcon className="w-6 inline" />
+                    </span>
+                  </li>
+                </ul>
+                <p className="mb-6">
+                  {
+                    clothing.filter(
+                      product => product.id === router.query.id
+                    )[0].description
+                  }
+                </p>
+                <Copyright />
+              </div>
+            </div>
           </Modal>
         )}
         <div className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Layout from '../../components/Layout';
 import Modal from '../../components/Modal';
 import ImageSlider from '../../components/ImageSlider';
+import Copyright from '../../components/Copyright';
 import { API_URL } from '../../config/index';
 
 export default function TattoosPage({ tattoos }) {
@@ -24,9 +25,67 @@ export default function TattoosPage({ tattoos }) {
       <Layout>
         {router.query.id && (
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <ImageSlider
-              images={tattoos.filter(tt => tt.id === router.query.id)[0].images}
-            />
+            <div className="bg-brand-white flex flex-col min-h-screen">
+              <div>
+                <ImageSlider
+                  images={
+                    tattoos.filter(tattoo => tattoo.id === router.query.id)[0]
+                      .images
+                  }
+                />
+              </div>
+              <div className="grow p-7 text-left text-xl font-thin overflow-y-scroll">
+                <ul className="mb-6">
+                  <li className="flex justify-between py-1">
+                    <span>cliente</span>
+                    <span className="uppercase font-normal">
+                      {
+                        tattoos.filter(
+                          tattoo => tattoo.id === router.query.id
+                        )[0].cliente
+                      }
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>estúdio</span>
+                    <span className="uppercase font-normal">
+                      {
+                        tattoos.filter(
+                          tattoo => tattoo.id === router.query.id
+                        )[0].sessoes[0].estudio
+                      }
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>data</span>
+                    <span className="uppercase font-normal">
+                      {new Date(
+                        tattoos.filter(
+                          tattoo => tattoo.id === router.query.id
+                        )[0].sessoes[0].data
+                      ).toLocaleDateString('pt-BR')}
+                    </span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <span>sessões</span>
+                    <span className="uppercase font-normal">
+                      {
+                        tattoos.filter(
+                          tattoo => tattoo.id === router.query.id
+                        )[0].numSessoes
+                      }
+                    </span>
+                  </li>
+                </ul>
+                <p>
+                  {
+                    tattoos.filter(tattoo => tattoo.id === router.query.id)[0]
+                      .description
+                  }
+                </p>
+                <Copyright />
+              </div>
+            </div>
           </Modal>
         )}
         <div className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">
