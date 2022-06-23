@@ -10,7 +10,7 @@ export default function Header({ openModal }) {
   const galleries = ['/tattoo', '/fotografia', '/roupas'];
 
   return (
-    <header className="fixed w-full z-10 bg-brand-white">
+    <header className="w-full z-10 bg-brand-white">
       <div className="w-full flex justify-between items-center h-20">
         <Link href="/tattoo">
           <a className="relative w-20 h-12 ml-3">

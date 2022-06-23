@@ -15,7 +15,7 @@ export default function ImageSlider({ images }) {
   };
 
   return (
-    <div className="relative w-full aspect-square flex justify-center items-center">
+    <div className="relative inset-0 w-full aspect-square ">
       <div
         onClick={slidePrev}
         className="absolute flex items-center w-16 left-0 px-2 h-full z-10 cursor-pointer mix-blend-screen"

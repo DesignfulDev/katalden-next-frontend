@@ -19,7 +19,7 @@ export default function Sidebar({ onClose }) {
   return (
     <div className="flex flex-wrap h-screen justify-center">
       <nav className="w-full self-center mt-24">
-        <ul className="text-3xl font-light lowercase tracking-wide">
+        <ul className="text-3xl text-center font-light lowercase tracking-wide">
           {links.map(link => (
             <li key={link.url} onClick={handleClose} className="py-4">
               <Link href={link.url} scroll={false}>

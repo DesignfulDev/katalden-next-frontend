@@ -29,7 +29,9 @@ export default function Layout({ title, keywords, description, children }) {
         <Sidebar onClose={closeModal} />
       </Modal>
 
-      <main className="mx-auto mt-28 w-full h-full">{children}</main>
+      <main className="mx-auto grow overflow-y-auto w-full h-full">
+        {children}
+      </main>
     </div>
   );
 }
