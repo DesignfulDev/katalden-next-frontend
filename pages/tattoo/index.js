@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import Modal from '../../components/Modal';
 import ImageSlider from '../../components/ImageSlider';
 import Copyright from '../../components/Copyright';
+import { Card } from '../../components/Card';
 import { API_URL } from '../../config/index';
 
 export default function TattoosPage({ tattoos }) {
@@ -25,7 +26,7 @@ export default function TattoosPage({ tattoos }) {
       <Layout>
         {router.query.id && (
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <div className="bg-brand-white flex flex-col min-h-screen">
+            <Card>
               <div>
                 <ImageSlider
                   images={
@@ -34,58 +35,28 @@ export default function TattoosPage({ tattoos }) {
                   }
                 />
               </div>
-              <div className="grow p-7 text-left text-xl font-thin overflow-y-scroll">
-                <ul className="mb-6">
-                  <li className="flex justify-between py-1">
-                    <span>cliente</span>
-                    <span className="uppercase font-normal">
-                      {
-                        tattoos.filter(
-                          tattoo => tattoo.id === router.query.id
-                        )[0].cliente
-                      }
-                    </span>
-                  </li>
-                  <li className="flex justify-between py-1">
-                    <span>estúdio</span>
-                    <span className="uppercase font-normal">
-                      {
-                        tattoos.filter(
-                          tattoo => tattoo.id === router.query.id
-                        )[0].sessoes[0].estudio
-                      }
-                    </span>
-                  </li>
-                  <li className="flex justify-between py-1">
-                    <span>data</span>
-                    <span className="uppercase font-normal">
-                      {new Date(
-                        tattoos.filter(
-                          tattoo => tattoo.id === router.query.id
-                        )[0].sessoes[0].data
-                      ).toLocaleDateString('pt-BR')}
-                    </span>
-                  </li>
-                  <li className="flex justify-between py-1">
-                    <span>sessões</span>
-                    <span className="uppercase font-normal">
-                      {
-                        tattoos.filter(
-                          tattoo => tattoo.id === router.query.id
-                        )[0].numSessoes
-                      }
-                    </span>
-                  </li>
-                </ul>
-                <p>
+              <section className="overflow-y-scroll text-xl font-thin text-left grow p-7">
+                <Card.Details>
+                  {tattoos
+                    .filter(tattoo => tattoo.id === router.query.id)[0]
+                    .details.map((item, idx) => {
+                      return (
+                        <Card.Details.Item key={idx} label={item.label}>
+                          {item.value}
+                        </Card.Details.Item>
+                      );
+                    })}
+                </Card.Details>
+                <Card.Description>
                   {
                     tattoos.filter(tattoo => tattoo.id === router.query.id)[0]
                       .description
                   }
-                </p>
+                </Card.Description>
+
                 <Copyright />
-              </div>
-            </div>
+              </section>
+            </Card>
           </Modal>
         )}
         <div className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">
@@ -97,7 +68,7 @@ export default function TattoosPage({ tattoos }) {
               href={`/tattoo?id=${tattoo.id}`}
               as={`/tattoo/${tattoo.id}`}
             >
-              <a className="w-full aspect-square relative">
+              <a className="relative w-full aspect-square">
                 <Image
                   src={tattoo.images[0].url}
                   alt="lorem picsum"
