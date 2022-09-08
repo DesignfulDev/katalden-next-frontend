@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: katalden-ui
+    env: static
+    plan: free
+    buildCommand: npm install && npm run export
+    staticPublishPath: ./_static
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: sameorigin
+    routes:
+      - type: redirect
+        source: /
+        destination: /tattoo
+    domains:
+      - mauriciolacerda.com
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NODE_VERSION
+        value: ~16.17.0
