@@ -18,7 +18,7 @@ const Item = ({ className, label, children }) => {
   return (
     <li className={classes}>
       <span>{label}</span>
-      <span className="font-normal">{children}</span>
+      <span className="font-normal uppercase">{children}</span>
     </li>
   );
 };
