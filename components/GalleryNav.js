@@ -1,18 +1,23 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const links = [
-  { url: '/tattoo', text: 'tattoo' },
-  { url: '/fotografia', text: 'fotografia' },
-  { url: '/roupas', text: 'roupas' },
-];
+export default function GalleryNav({ galleries }) {
+  const router = useRouter();
 
-export default function GalleryNav() {
+  const [activeGallery, setActiveGallery] = useState(router.pathname);
+
   return (
-    <nav className="w-full flex justify-around items-center h-8">
-      {links.map(link => (
-        <Link key={link.url} href={link.url}>
-          <a className="md:px-10 font-light text-sm md:text-xl uppercase tracking-widest">
-            {link.text}
+    <nav className="flex items-center justify-around w-full h-8">
+      {galleries.map(gallery => (
+        <Link key={gallery.path} href={gallery.path}>
+          <a
+            className={`transition px-2 text-sm font-light tracking-widest text-center uppercase md:px-10 md:text-xl hover:text-brand ${
+              gallery.path === activeGallery &&
+              'border-brand-light text-brand border-b-2 font-medium scale-110'
+            }`}
+          >
+            {gallery.display}
           </a>
         </Link>
       ))}

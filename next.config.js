@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/tattoo',
+        destination: '/tattoos',
         permanent: true,
       },
     ];
