@@ -18,7 +18,7 @@ export default function ImageSlider({ images }) {
     <div className="relative inset-0 w-full aspect-square ">
       <div
         onClick={slidePrev}
-        className="absolute flex items-center w-16 left-0 px-2 h-full z-10 cursor-pointer mix-blend-screen"
+        className="absolute left-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
       >
         <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80">
           <ChevronLeftIcon />
@@ -26,7 +26,7 @@ export default function ImageSlider({ images }) {
       </div>
       <div
         onClick={slideNext}
-        className="absolute flex items-center w-16 right-0 px-2 h-full z-10 cursor-pointer mix-blend-screen"
+        className="absolute right-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
       >
         <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80 ">
           <ChevronRightIcon />
@@ -37,7 +37,7 @@ export default function ImageSlider({ images }) {
           idx === current && (
             <Image
               key={idx}
-              src={slide.url}
+              src={slide.attributes.formats.large.url}
               alt="Slider"
               layout="fill"
               objectFit="cover"
