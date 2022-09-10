@@ -3,12 +3,12 @@ import { API_URL } from '../../config/index';
 
 export default function FashionGalleryPage({ projects }) {
   const cardFields = [
-    { api: 'nome', display: 'peça' },
-    { api: 'material', display: 'material' },
-    { api: 'preco', display: 'preço' },
+    { api: 'nome', label: 'peça' },
+    { api: 'material', label: 'material' },
+    { api: 'preco', label: 'preço' },
   ];
 
-  return <Gallery cardFields={cardFields} items={projects} />;
+  return <Gallery cardFields={cardFields} projects={projects} />;
 }
 
 export async function getStaticProps() {

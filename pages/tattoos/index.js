@@ -3,12 +3,12 @@ import { API_URL } from '../../config/index';
 
 export default function TattooGalleryPage({ projects }) {
   const cardFields = [
-    { api: 'cliente', display: 'cliente' },
-    { api: 'local', display: 'local' },
-    { api: 'data', display: 'data' },
+    { api: 'cliente', label: 'cliente' },
+    { api: 'local', label: 'local' },
+    { api: 'data', label: 'data' },
   ];
 
-  return <Gallery cardFields={cardFields} items={projects} />;
+  return <Gallery cardFields={cardFields} projects={projects} />;
 }
 
 export async function getStaticProps() {

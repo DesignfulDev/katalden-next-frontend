@@ -8,7 +8,7 @@ import ImageSlider from './ImageSlider';
 import Copyright from './Copyright';
 import { Card } from './Card';
 
-export default function Gallery({ items, cardFields }) {
+export default function Gallery({ projects, cardFields }) {
   const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -24,33 +24,35 @@ export default function Gallery({ items, cardFields }) {
     <div>
       <Layout>
         {/* MODAL */}
-
         {router.query.id && (
           <Modal isOpen={isOpen} closeModal={closeModal}>
             <Card>
               <div>
                 <ImageSlider
                   images={
-                    items.filter(item => item.id === +router.query.id)[0]
-                      .attributes.imagens.data
+                    projects.filter(
+                      project => project.id === +router.query.id
+                    )[0].attributes.imagens.data
                   }
                 />
               </div>
               <section className="overflow-y-scroll text-xl font-thin text-left grow p-7">
                 <Card.Details>
                   {cardFields.map((field, idx) => (
-                    <Card.Details.Item key={idx} label={field.display}>
+                    <Card.Details.Item key={idx} label={field.label}>
                       {
-                        items.filter(item => item.id === +router.query.id)[0]
-                          .attributes[field.api]
+                        projects.filter(
+                          project => project.id === +router.query.id
+                        )[0].attributes[field.api]
                       }
                     </Card.Details.Item>
                   ))}
                 </Card.Details>
                 <Card.Description>
                   {
-                    items.filter(item => item.id === +router.query.id)[0]
-                      .attributes.descricao
+                    projects.filter(
+                      project => project.id === +router.query.id
+                    )[0].attributes.descricao
                   }
                 </Card.Description>
 
@@ -61,20 +63,20 @@ export default function Gallery({ items, cardFields }) {
         )}
 
         {/* GRID GALLERY */}
-
         <section className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">
-          {items.length === 0 && <h3>Sem projetos, por enquanto</h3>}
+          {projects.length === 0 && <h3>Sem projetos, por enquanto</h3>}
 
-          {items.map(item => (
+          {projects.map(project => (
             <Link
-              key={item.id}
-              href={`/${router.pathname.slice(1)}?id=${item.id}`}
-              as={`/${router.pathname.slice(1)}/${item.id}`}
+              key={project.id}
+              href={`/${router.pathname.slice(1)}?id=${project.id}`}
+              as={`/${router.pathname.slice(1)}/${project.id}`}
             >
               <a className="relative w-full aspect-square">
                 <Image
                   src={
-                    item.attributes.imagens.data[0].attributes.formats.small.url
+                    project.attributes.imagens.data[0].attributes.formats.small
+                      .url
                   }
                   alt="lorem picsum"
                   layout="fill"

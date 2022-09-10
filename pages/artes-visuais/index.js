@@ -3,11 +3,11 @@ import { API_URL } from '../../config/index';
 
 export default function VisualArtsGalleryPage({ projects }) {
   const cardFields = [
-    { api: 'titulo', display: 'título' },
-    { api: 'data', display: 'data' },
+    { api: 'titulo', label: 'título' },
+    { api: 'data', label: 'data' },
   ];
 
-  return <Gallery cardFields={cardFields} items={projects} />;
+  return <Gallery cardFields={cardFields} projects={projects} />;
 }
 
 export async function getStaticProps() {
