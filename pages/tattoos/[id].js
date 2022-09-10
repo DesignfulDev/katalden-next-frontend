@@ -1,45 +1,42 @@
-import { useRouter } from 'next/router';
+import GalleryItem from '../../components/GalleryItem';
 import { API_URL } from '../../config/index';
-import Layout from '../../components/Layout';
-import ImageSlider from '../../components/ImageSlider';
-import Copyright from '../../components/Copyright';
-import { Card } from '../../components/Card';
 
-export default function TattooPage({ tattoo }) {
-  const router = useRouter();
+export default function TattooItemPage({ project }) {
+  const cardFields = [
+    { api: 'cliente', label: 'cliente' },
+    { api: 'local', label: 'local' },
+    { api: 'data', label: 'data' },
+  ];
 
-  const cardDetailsFields = ['cliente', 'local', 'data'];
-
-  return (
-    <div>
-      <Layout>
-        <Card>
-          <div>
-            <ImageSlider images={tattoo.attributes.imagens.data} />
-          </div>
-          <section className="overflow-y-scroll text-xl font-thin text-left grow p-7">
-            <Card.Details>
-              {cardDetailsFields.map((item, idx) => (
-                <Card.Details.Item key={idx} label={item}>
-                  {tattoo.attributes[item]}
-                </Card.Details.Item>
-              ))}
-            </Card.Details>
-            <Card.Description>{tattoo.attributes.descricao}</Card.Description>
-
-            <Copyright />
-          </section>
-        </Card>
-      </Layout>
-    </div>
-  );
+  return <GalleryItem project={project} cardFields={cardFields} />;
 }
 
-export async function getServerSideProps({ query: { id } }) {
-  const res = await fetch(`${API_URL}/api/tattoos/${id}?populate=*`);
-  const { data: tattoo } = await res.json();
+export async function getStaticPaths() {
+  const res = await fetch(`${API_URL}/api/tattoos`);
+
+  const { data: projects } = await res.json();
+
+  const paths = projects.map(project => ({
+    params: { id: `${project.id}` },
+  }));
 
   return {
-    props: { tattoo },
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { id } = params;
+
+  const res = await fetch(
+    `${API_URL}/api/tattoos?filters[id]=${id}&populate=*`
+  );
+  const { data } = await res.json();
+  const project = data[0];
+
+  return {
+    props: { project },
+    revalidate: 1,
   };
 }
