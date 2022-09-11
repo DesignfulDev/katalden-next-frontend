@@ -19,7 +19,7 @@ export default function Header({ openModal }) {
         <Link href={galleries[0].path}>
           <a className="relative w-20 h-12 ml-3">
             <Image
-              src="/images/logo-black.svg"
+              src="logo-black_q7bwnm.svg"
               layout="fill"
               objectFit="contain"
               alt="Logo"
