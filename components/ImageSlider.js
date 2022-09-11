@@ -37,7 +37,7 @@ export default function ImageSlider({ images }) {
           idx === current && (
             <Image
               key={idx}
-              src={slide.attributes.formats.large.name}
+              src={slide.attributes.name}
               alt="Slider"
               layout="fill"
               objectFit="cover"
