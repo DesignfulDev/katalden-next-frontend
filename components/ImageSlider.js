@@ -37,8 +37,8 @@ export default function ImageSlider({ images }) {
           idx === current && (
             <Image
               key={idx}
-              src={slide.attributes.name}
-              alt="Slider"
+              src={slide.attributes.hash}
+              alt={slide.attributes.alternativeText}
               layout="fill"
               objectFit="cover"
               className=""

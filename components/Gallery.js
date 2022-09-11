@@ -74,11 +74,11 @@ export default function Gallery({ projects, cardFields }) {
             >
               <a className="relative w-full aspect-square">
                 <Image
-                  src={
-                    project.attributes.imagens.data[0].attributes.formats.small
-                      .url
+                  src={project.attributes.imagens.data[0].attributes.hash}
+                  alt={
+                    project.attributes.imagens.data[0].attributes
+                      .alternativeText
                   }
-                  alt="lorem picsum"
                   layout="fill"
                   objectFit="cover"
                 />
