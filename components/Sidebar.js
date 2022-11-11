@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Copyright from './Copyright';
 
 const links = [
-  { url: '/tattoo', text: 'galerias' },
+  { url: '/tattoos', text: 'galerias' },
   { url: '/sobre', text: 'sobre mim' },
   { url: '/contato', text: 'contato' },
   { url: '/newsletter', text: 'newsletter' },
@@ -17,9 +17,9 @@ export default function Sidebar({ onClose }) {
   };
 
   return (
-    <div className="flex flex-wrap h-screen justify-center">
-      <nav className="w-full self-center mt-24">
-        <ul className="text-3xl text-center font-light lowercase tracking-wide">
+    <div className="flex flex-wrap justify-center h-screen">
+      <nav className="self-center w-full mt-24">
+        <ul className="text-3xl font-light tracking-wide text-center lowercase">
           {links.map(link => (
             <li key={link.url} onClick={handleClose} className="py-4">
               <Link href={link.url} scroll={false}>
