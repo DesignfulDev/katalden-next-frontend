@@ -33,7 +33,7 @@ export default function Header({ openModal }) {
         </button>
       </div>
 
-      {galleries.map(gallery => gallery.path === router.pathname) && (
+      {galleries.some(gallery => gallery.path === router.pathname) && (
         <GalleryNav galleries={galleries} />
       )}
     </header>
