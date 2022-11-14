@@ -16,6 +16,7 @@ export default function Modal({ isOpen, closeModal, title, children }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
+            {/* Shadow Overlay */}
             <div
               className="fixed inset-0 md:bg-brand-black/50"
               aria-hidden="true"
