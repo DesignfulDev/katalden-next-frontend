@@ -1,5 +1,6 @@
 import GalleryItem from '../../components/GalleryItem';
 import { API_URL } from '../../config/index';
+import Layout from '../../components/Layout';
 
 export default function VisualArtsItemPage({ project }) {
   const cardFields = [
@@ -7,7 +8,12 @@ export default function VisualArtsItemPage({ project }) {
     { api: 'data', label: 'data' },
   ];
 
-  return <GalleryItem project={project} cardFields={cardFields} />;
+  // return <GalleryItem project={project} cardFields={cardFields} />;
+  return (
+    <Layout>
+      <GalleryItem project={project} cardFields={cardFields} />
+    </Layout>
+  );
 }
 
 export async function getStaticPaths() {

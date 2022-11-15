@@ -1,5 +1,6 @@
 import Gallery from '../../components/Gallery';
 import { API_URL } from '../../config/index';
+import Layout from '../../components/Layout';
 
 export default function VisualArtsGalleryPage({ projects }) {
   const cardFields = [
@@ -7,7 +8,11 @@ export default function VisualArtsGalleryPage({ projects }) {
     { api: 'data', label: 'data' },
   ];
 
-  return <Gallery cardFields={cardFields} projects={projects} />;
+  return (
+    <Layout>
+      <Gallery cardFields={cardFields} projects={projects} />
+    </Layout>
+  );
 }
 
 export async function getStaticProps() {
