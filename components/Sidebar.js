@@ -7,7 +7,7 @@ const links = [
   { url: '/contato', text: 'contato' },
   { url: '/newsletter', text: 'newsletter' },
   { url: '/blog', text: 'blog' },
-  { url: '/loja', text: 'loja' },
+  // { url: '/loja', text: 'loja' },
 ];
 
 export default function Sidebar({ onClose }) {
@@ -17,8 +17,8 @@ export default function Sidebar({ onClose }) {
   };
 
   return (
-    <div className="flex flex-wrap justify-center h-screen">
-      <nav className="self-center w-full mt-24">
+    <div className="flex flex-col justify-between h-screen">
+      <nav className="flex items-center justify-center w-full grow">
         <ul className="text-3xl font-light tracking-wide text-center lowercase">
           {links.map(link => (
             <li key={link.url} onClick={handleClose} className="py-4">
@@ -39,7 +39,7 @@ export default function Sidebar({ onClose }) {
           </li>
         </ul>
       </nav>
-      <div className="self-end">
+      <div className="mb-10">
         <Copyright />
       </div>
     </div>
