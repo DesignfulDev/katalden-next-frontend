@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from './Header';
 import Modal from './Modal';
 import Sidebar from './Sidebar';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Layout({ title, keywords, description, children }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Layout({ title, keywords, description, children }) {
   }
 
   return (
-    <div className="overflow-y-scroll flex flex-col h-screen bg-brand-white text-brand-black">
+    <div className="flex flex-col h-screen overflow-y-scroll bg-brand-white text-brand-black">
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords} />
@@ -25,11 +26,15 @@ export default function Layout({ title, keywords, description, children }) {
 
       <Header openModal={openModal} />
 
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <Sidebar onClose={closeModal} />
-      </Modal>
+      <AnimatePresence mode="wait">
+        {isOpen && (
+          <Modal closeModal={closeModal}>
+            <Sidebar onClose={closeModal} />
+          </Modal>
+        )}
+      </AnimatePresence>
 
-      <main className="mx-auto grow overflow-y-auto w-full h-full">
+      <main className="w-full h-full mx-auto overflow-y-auto grow">
         {children}
       </main>
     </div>
