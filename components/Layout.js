@@ -26,7 +26,7 @@ export default function Layout({ title, keywords, description, children }) {
 
       <Header openModal={openModal} />
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isOpen && (
           <Modal closeModal={closeModal}>
             <Sidebar onClose={closeModal} />
