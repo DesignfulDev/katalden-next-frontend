@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import Modal from './Modal';
 import GalleryItem from '../components/GalleryItem';
+import { motion } from 'framer-motion';
 
 export default function Gallery({ projects, cardFields }) {
   const router = useRouter();
@@ -40,17 +40,32 @@ export default function Gallery({ projects, cardFields }) {
             key={project.id}
             href={`/${router.pathname.slice(1)}?id=${project.id}`}
             as={`/${router.pathname.slice(1)}/${project.id}`}
+            passHref
           >
-            <a className="relative w-full aspect-square">
-              <Image
-                src={project.attributes.imagens.data[0].attributes.hash}
-                alt={
-                  project.attributes.imagens.data[0].attributes.alternativeText
-                }
-                layout="fill"
-                objectFit="cover"
-              />
-            </a>
+            <motion.img
+              className="relative object-cover w-full aspect-square"
+              key={project.id}
+              srcSet={`
+                    ${project.attributes.imagens.data[0].attributes.formats.thumbnail.url} 
+                    ${project.attributes.imagens.data[0].attributes.formats.thumbnail.width}w, 
+                    ${project.attributes.imagens.data[0].attributes.formats.small.url} 
+                    ${project.attributes.imagens.data[0].attributes.formats.small.width}w, 
+                    ${project.attributes.imagens.data[0].attributes.formats.medium.url} 
+                    ${project.attributes.imagens.data[0].attributes.formats.medium.width}w, 
+                    ${project.attributes.imagens.data[0].attributes.formats.large.url} 
+                    ${project.attributes.imagens.data[0].attributes.formats.large.width}w
+                  `}
+              sizes="
+                    (max-width: 414px) 34vw, 
+                    (max-width: 1024px) 28vw,
+                    20vw"
+              src={project.attributes.imagens.data[0].attributes.url}
+              alt={
+                project.attributes.imagens.data[0].attributes.alternativeText
+              }
+              loading="lazy"
+              decoding="async"
+            />
           </Link>
         ))}
       </section>
