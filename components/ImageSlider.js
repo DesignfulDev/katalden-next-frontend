@@ -7,11 +7,11 @@ export default function ImageSlider({ images }) {
   const sliderMaxIdx = images.length;
 
   const slideNext = () => {
-    setCurrent(x => (x === sliderMaxIdx - 1 ? 0 : x + 1));
+    setCurrent(current === sliderMaxIdx - 1 ? sliderMaxIdx - 1 : current + 1);
   };
 
   const slidePrev = () => {
-    setCurrent(current === 0 ? sliderMaxIdx - 1 : current - 1);
+    setCurrent(current === 0 ? 0 : current - 1);
   };
 
   return (
