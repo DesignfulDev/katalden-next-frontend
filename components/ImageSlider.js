@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { motion } from 'framer-motion';
 
 export default function ImageSlider({ images }) {
   const [current, setCurrent] = useState(() => 0);
@@ -40,13 +40,28 @@ export default function ImageSlider({ images }) {
       {images.map(
         (slide, idx) =>
           idx === current && (
-            <Image
+            <motion.img
               key={idx}
-              src={slide.attributes.hash}
+              srcSet={`
+                    ${slide.attributes.formats.thumbnail.url} 
+                    ${slide.attributes.formats.thumbnail.width}w, 
+                    ${slide.attributes.formats.small.url} 
+                    ${slide.attributes.formats.small.width}w, 
+                    ${slide.attributes.formats.medium.url} 
+                    ${slide.attributes.formats.medium.width}w, 
+                    ${slide.attributes.formats.large.url} 
+                    ${slide.attributes.formats.large.width}w
+                  `}
+              sizes="
+                    (max-width: 414px) 100vw, 
+                    (max-width: 1024px) 80vw,
+                    60vw"
+              src={slide.attributes.url}
               alt={slide.attributes.alternativeText}
-              layout="fill"
-              objectFit="cover"
-              className=""
+              loading="lazy"
+              decoding="async"
+              variants={variants}
+              animate="center"
             />
           )
       )}
