@@ -15,23 +15,28 @@ export default function ImageSlider({ images }) {
   };
 
   return (
-    <div className="relative inset-0 w-full aspect-square ">
-      <div
-        onClick={slidePrev}
-        className="absolute left-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
-      >
-        <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80">
-          <ChevronLeftIcon />
-        </button>
-      </div>
-      <div
-        onClick={slideNext}
-        className="absolute right-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
-      >
-        <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80 ">
-          <ChevronRightIcon />
-        </button>
-      </div>
+    <div className="relative inset-0 w-full aspect-square">
+      {current > 0 && (
+        <div
+          onClick={slidePrev}
+          className="absolute left-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
+        >
+          <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80">
+            <ChevronLeftIcon />
+          </button>
+        </div>
+      )}
+      {current < sliderMaxIdx - 1 && (
+        <div
+          onClick={slideNext}
+          className="absolute right-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
+        >
+          <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80 ">
+            <ChevronRightIcon />
+          </button>
+        </div>
+      )}
+
       {images.map(
         (slide, idx) =>
           idx === current && (
