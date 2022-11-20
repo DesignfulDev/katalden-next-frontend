@@ -1,24 +1,49 @@
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function ImageSlider({ images }) {
-  const [current, setCurrent] = useState(() => 0);
+  const [[slide, direction], setSlide] = useState([0, 0]);
   const sliderMaxIdx = images.length;
 
-  const slideNext = () => {
-    setCurrent(current === sliderMaxIdx - 1 ? sliderMaxIdx - 1 : current + 1);
+  const paginate = newDirection => {
+    setSlide([slide + newDirection, newDirection]);
   };
 
-  const slidePrev = () => {
-    setCurrent(current === 0 ? 0 : current - 1);
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset, velocity) => {
+    return Math.abs(offset) * velocity;
+  };
+
+  const variants = {
+    enter: direction => {
+      return {
+        x: direction > 0 ? '100vw' : '-100vw',
+        opacity: 0,
+        // scale: 0.5,
+      };
+    },
+    center: {
+      // zIndex: 20,
+      x: 0,
+      opacity: 1,
+      // scale: 1,
+    },
+    exit: direction => {
+      return {
+        // zIndex: 0,
+        x: direction < 0 ? '100vw' : '-100vw',
+        opacity: 0,
+        // scale: 0.5,
+      };
+    },
   };
 
   return (
-    <div className="relative inset-0 w-full aspect-square">
-      {current > 0 && (
+    <section className="relative inset-0 w-screen">
+      {slide > 0 && (
         <div
-          onClick={slidePrev}
+          onClick={() => paginate(-1)}
           className="absolute left-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
         >
           <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80">
@@ -26,9 +51,9 @@ export default function ImageSlider({ images }) {
           </button>
         </div>
       )}
-      {current < sliderMaxIdx - 1 && (
+      {slide < sliderMaxIdx - 1 && (
         <div
-          onClick={slideNext}
+          onClick={() => paginate(1)}
           className="absolute right-0 z-10 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
         >
           <button className="w-8 p-1 rounded-full mix-blend-screen bg-brand-white/50 hover:bg-brand-white/80 ">
@@ -38,33 +63,61 @@ export default function ImageSlider({ images }) {
       )}
 
       {images.map(
-        (slide, idx) =>
-          idx === current && (
-            <motion.img
-              key={idx}
-              srcSet={`
-                    ${slide.attributes.formats.thumbnail.url} 
-                    ${slide.attributes.formats.thumbnail.width}w, 
-                    ${slide.attributes.formats.small.url} 
-                    ${slide.attributes.formats.small.width}w, 
-                    ${slide.attributes.formats.medium.url} 
-                    ${slide.attributes.formats.medium.width}w, 
-                    ${slide.attributes.formats.large.url} 
-                    ${slide.attributes.formats.large.width}w
+        (image, idx) =>
+          idx === slide && (
+            <div className="flex">
+              <AnimatePresence initial={false} custom={direction} key={idx}>
+                <motion.img
+                  key={idx}
+                  className="relative object-cover grow"
+                  srcSet={`
+                    ${image.attributes.formats.thumbnail.url} 
+                    ${image.attributes.formats.thumbnail.width}w, 
+                    ${image.attributes.formats.small.url} 
+                    ${image.attributes.formats.small.width}w, 
+                    ${image.attributes.formats.medium.url} 
+                    ${image.attributes.formats.medium.width}w, 
+                    ${image.attributes.formats.large.url} 
+                    ${image.attributes.formats.large.width}w
                   `}
-              sizes="
+                  sizes="
                     (max-width: 414px) 100vw, 
                     (max-width: 1024px) 80vw,
                     60vw"
-              src={slide.attributes.url}
-              alt={slide.attributes.alternativeText}
-              loading="lazy"
-              decoding="async"
-              variants={variants}
-              animate="center"
-            />
+                  src={image.attributes.url}
+                  alt={image.attributes.alternativeText}
+                  loading="lazy"
+                  decoding="async"
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: 'spring', stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.4}
+                  whileDrag={{ scale: 0.8 }}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
+
+                    if (
+                      swipe < -swipeConfidenceThreshold &&
+                      slide < images.length - 1
+                    ) {
+                      paginate(1);
+                    } else if (swipe > swipeConfidenceThreshold && slide > 0) {
+                      paginate(-1);
+                    }
+                  }}
+                />
+              </AnimatePresence>
+            </div>
           )
       )}
-    </div>
+    </section>
   );
 }
