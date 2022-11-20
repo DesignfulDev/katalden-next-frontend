@@ -5,10 +5,9 @@ import { Card } from './Card';
 export default function GalleryItem({ project, cardFields }) {
   return (
     <Card>
-      <div>
-        <ImageSlider images={project.attributes.imagens.data} />
-      </div>
-      <section className="overflow-y-scroll text-xl font-thin text-left grow p-7">
+      <ImageSlider images={project.attributes.imagens.data} />
+
+      <section className="overflow-y-scroll text-xl font-thin text-left p-7">
         <Card.Details>
           {cardFields.map((field, idx) => (
             <Card.Details.Item key={idx} label={field.label}>

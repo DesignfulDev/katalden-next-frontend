@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/60882627/using-dot-notation-with-functional-component
 
-const CardRoot = ({ className, children }) => {
-  const classes = 'bg-brand-white flex flex-col min-h-screen ';
+const CardRoot = ({ className = '', children }) => {
+  const classes = 'flex flex-col bg-brand-white h-screen ';
 
   return <div className={classes + className}>{children}</div>;
 };
