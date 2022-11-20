@@ -1,6 +1,6 @@
 export default function Copyright() {
   return (
-    <footer className="mx-auto text-center py-5 font-light text-sm ">
+    <footer className="py-5 mx-auto text-sm font-light text-center">
       <p className="uppercase">
         Copyright &copy; {new Date().getFullYear()} Katharine Alden
       </p>

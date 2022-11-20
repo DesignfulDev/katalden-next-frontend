@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['res.cloudinary.com'],
+    loader: 'cloudinary',
+    path: `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/`,
   },
 
   async redirects() {

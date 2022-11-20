@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MenuAlt3Icon } from '@heroicons/react/outline';
 import GalleryNav from './GalleryNav';
+import logo from '../public/images/logo-black.svg';
 
 export default function Header({ openModal }) {
   const router = useRouter();
@@ -17,13 +18,8 @@ export default function Header({ openModal }) {
     <header className="z-10 w-full pb-2 bg-brand-white">
       <div className="flex items-center justify-between w-full h-20">
         <Link href={galleries[0].path}>
-          <a className="relative w-20 h-12 ml-3">
-            <Image
-              src="/images/logo-black.svg"
-              layout="fill"
-              objectFit="contain"
-              alt="Logo"
-            />
+          <a className="relative w-20 h-12 p-1 mb-2 ml-3">
+            <Image loader={({ src }) => src} src={logo} alt="Logo" />
           </a>
         </Link>
 
@@ -32,7 +28,7 @@ export default function Header({ openModal }) {
         </button>
       </div>
 
-      {galleries.map(gallery => gallery.path === router.pathname) && (
+      {galleries.some(gallery => gallery.path === router.pathname) && (
         <GalleryNav galleries={galleries} />
       )}
     </header>
