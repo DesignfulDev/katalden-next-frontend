@@ -7,7 +7,7 @@ export default function GalleryItem({ project, cardFields }) {
     <Card>
       <ImageSlider images={project.attributes.imagens.data} />
 
-      <section className="overflow-y-scroll text-xl font-thin text-left p-7">
+      <section className="text-xl font-thin text-left p-7">
         <Card.Details>
           {cardFields.map((field, idx) => (
             <Card.Details.Item key={idx} label={field.label}>
