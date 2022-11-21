@@ -52,7 +52,7 @@ export default function Modal({ closeModal, title, children }) {
             <button
               type="button"
               onClick={closeModal}
-              className="fixed top-0 right-0 z-20 w-16 h-16 p-3"
+              className="fixed top-0 right-0 z-40 w-16 h-16 p-3 outline-none"
             >
               <XIcon />
             </button>
