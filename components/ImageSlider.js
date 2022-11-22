@@ -65,7 +65,7 @@ export default function ImageSlider({ images }) {
       {images.map(
         (image, idx) =>
           idx === slide && (
-            <div className="flex">
+            <div key={idx} className="flex">
               <AnimatePresence custom={direction} key={idx}>
                 <motion.img
                   key={idx}
