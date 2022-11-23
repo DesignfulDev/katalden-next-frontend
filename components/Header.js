@@ -19,7 +19,12 @@ export default function Header({ openModal }) {
       <div className="flex items-center justify-between w-full h-20">
         <Link href={galleries[0].path}>
           <a className="relative w-20 h-12 p-1 mb-2 ml-3">
-            <Image loader={({ src }) => src} src={logo} alt="Logo" />
+            <Image
+              loader={({ src }) => src}
+              src={logo}
+              alt="Logo"
+              unoptimized
+            />
           </a>
         </Link>
 
