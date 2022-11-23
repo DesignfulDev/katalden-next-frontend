@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Modal from './Modal';
 import GalleryItem from '../components/GalleryItem';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Gallery({ projects, cardFields }) {
   const router = useRouter();
@@ -20,16 +20,18 @@ export default function Gallery({ projects, cardFields }) {
   return (
     <div>
       {/* MODAL */}
-      {router.query.id && (
-        <Modal isOpen={isOpen} closeModal={closeModal}>
-          <GalleryItem
-            project={
-              projects.filter(project => project.id === +router.query.id)[0]
-            }
-            cardFields={cardFields}
-          />
-        </Modal>
-      )}
+      <AnimatePresence>
+        {router.query.id && (
+          <Modal isOpen={isOpen} closeModal={closeModal}>
+            <GalleryItem
+              project={
+                projects.filter(project => project.id === +router.query.id)[0]
+              }
+              cardFields={cardFields}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
 
       {/* GRID GALLERY */}
       <section className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">
