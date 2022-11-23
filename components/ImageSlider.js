@@ -24,14 +24,12 @@ export default function ImageSlider({ images }) {
       };
     },
     center: {
-      zIndex: 20,
       x: 0,
       opacity: 1,
       scale: 1,
     },
     exit: direction => {
       return {
-        zIndex: 0,
         x: direction < 0 ? 1000 : -1000,
         opacity: 0.6,
         scale: 0.6,
