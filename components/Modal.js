@@ -5,6 +5,26 @@ import { motion } from 'framer-motion';
 export default function Modal({ closeModal, title, children }) {
   const easing = [0.36, 0.66, 0.04, 1];
 
+  const variants = {
+    hidden: {
+      y: 1000,
+    },
+    enter: {
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: easing,
+      },
+    },
+    exit: {
+      y: 1000,
+      transition: {
+        duration: 0.3,
+        ease: easing,
+      },
+    },
+  };
+
   return (
     <>
       <Dialog className="fixed inset-0 z-10" onClose={closeModal} open={true}>
@@ -33,21 +53,10 @@ export default function Modal({ closeModal, title, children }) {
           <Dialog.Panel
             className="z-10 flex flex-col w-screen bg-brand-white supports-backdrop:bg-brand-white/70 supports-backdrop:backdrop-blur-md"
             as={motion.div}
-            initial={{ y: '100vh' }}
-            animate={{
-              y: 0,
-              transition: {
-                duration: 0.4,
-                ease: easing,
-              },
-            }}
-            exit={{
-              y: '100vh',
-              transition: {
-                duration: 0.3,
-                ease: easing,
-              },
-            }}
+            variants={variants}
+            initial="hidden"
+            animate="enter"
+            exit="exit"
           >
             <button
               type="button"
