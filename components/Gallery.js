@@ -2,10 +2,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Modal from './Modal';
+import GalleryNav from './GalleryNav';
 import GalleryItem from '../components/GalleryItem';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Gallery({ projects, cardFields }) {
+  const galleries = [
+    { path: '/tattoos', display: 'tattoo' },
+    { path: '/artes-visuais', display: 'artes visuais' },
+    { path: '/roupas', display: 'roupas' },
+  ];
+
   const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -32,6 +39,11 @@ export default function Gallery({ projects, cardFields }) {
           </Modal>
         )}
       </AnimatePresence>
+
+      {/* GALLERY NAVIGATION */}
+      {galleries.some(gallery => gallery.path === router.pathname) && (
+        <GalleryNav galleries={galleries} />
+      )}
 
       {/* GRID GALLERY */}
       <motion.section
