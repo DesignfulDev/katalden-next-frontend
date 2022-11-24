@@ -7,7 +7,7 @@ export default function Header({ openModal }) {
   return (
     <header className="z-10 w-full bg-brand-white">
       <div className="flex items-center justify-between w-full h-20">
-        <Link href={galleries[0].path}>
+        <Link href="/tattoos">
           <a className="relative w-20 h-12 p-1 mb-2 ml-3">
             <Image
               loader={({ src }) => src}
