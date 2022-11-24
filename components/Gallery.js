@@ -34,7 +34,12 @@ export default function Gallery({ projects, cardFields }) {
       </AnimatePresence>
 
       {/* GRID GALLERY */}
-      <section className="grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll">
+      <motion.section
+        className="pt-2 grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll"
+        initial={{ opacity: 0.6, x: 200 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0.6, x: 200 }}
+      >
         {projects.length === 0 && <h3>Sem projetos, por enquanto</h3>}
 
         {projects.map(project => (
@@ -70,7 +75,7 @@ export default function Gallery({ projects, cardFields }) {
             />
           </Link>
         ))}
-      </section>
+      </motion.section>
     </div>
   );
 }
