@@ -24,6 +24,14 @@ export default function Gallery({ projects, cardFields }) {
     router.back();
   }
 
+  useEffect(() => {
+    const htmlDocument = document.getElementsByTagName('html')[0];
+
+    isOpen
+      ? htmlDocument.classList.add('overscroll-y-contain')
+      : htmlDocument.classList.remove('overscroll-y-contain');
+  }, [isOpen]);
+
   return (
     <div>
       {/* MODAL */}
