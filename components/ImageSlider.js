@@ -64,10 +64,10 @@ export default function ImageSlider({ images }) {
         (image, idx) =>
           idx === slide && (
             <div key={idx} className="flex">
-              <AnimatePresence custom={direction} key={idx}>
+              <AnimatePresence mode="popLayout" custom={direction} key={idx}>
                 <motion.img
                   key={idx}
-                  className="relative object-cover grow"
+                  className="relative object-cover grow max-h-[60vh]"
                   srcSet={`
                     ${image.attributes.formats.thumbnail.url} 
                     ${image.attributes.formats.thumbnail.width}w, 
@@ -91,6 +91,7 @@ export default function ImageSlider({ images }) {
                   initial="enter"
                   animate="center"
                   exit="exit"
+                  layout
                   transition={{
                     x: { type: 'spring', stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
