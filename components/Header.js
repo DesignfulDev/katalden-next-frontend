@@ -13,7 +13,9 @@ export default function Header({ openModal }) {
               loader={({ src }) => src}
               src={logo}
               alt="Logo"
-              unoptimized
+              width={80}
+              height={58}
+              priority={true}
             />
           </a>
         </Link>
