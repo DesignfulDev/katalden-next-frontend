@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function ImageSlider({ images }) {
   const [[slide, direction], setSlide] = useState([0, 0]);
@@ -63,60 +64,54 @@ export default function ImageSlider({ images }) {
       {images.map(
         (image, idx) =>
           idx === slide && (
-            <div key={idx} className="flex">
-              <AnimatePresence mode="popLayout" custom={direction} key={idx}>
-                <motion.img
-                  key={idx}
-                  className="relative object-cover grow max-h-[60vh]"
-                  srcSet={`
-                    ${image.attributes.formats.thumbnail.url} 
-                    ${image.attributes.formats.thumbnail.width}w, 
-                    ${image.attributes.formats.small.url} 
-                    ${image.attributes.formats.small.width}w, 
-                    ${image.attributes.formats.medium.url} 
-                    ${image.attributes.formats.medium.width}w, 
-                    ${image.attributes.formats.large.url} 
-                    ${image.attributes.formats.large.width}w
-                  `}
-                  sizes="
-                    (max-width: 414px) 100vw, 
-                    (max-width: 1024px) 80vw,
-                    60vw"
-                  src={image.attributes.url}
-                  alt={image.attributes.alternativeText}
-                  loading="lazy"
-                  decoding="async"
-                  custom={direction}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  layout
-                  transition={{
-                    x: { type: 'spring', stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
-                  }}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.4}
-                  whileDrag={{
-                    scale: 0.6,
-                  }}
-                  onDragEnd={(e, { offset, velocity }) => {
-                    const swipe = swipePower(offset.x, velocity.x);
+            <AnimatePresence mode="popLayout" custom={direction} key={idx}>
+              <motion.div
+                key={idx}
+                className="relative flex max-h-[60vh]"
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                layout
+                transition={{
+                  x: { type: 'spring', stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.4}
+                whileDrag={{
+                  scale: 0.6,
+                }}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x);
 
-                    if (
-                      swipe < -swipeConfidenceThreshold &&
-                      slide < images.length - 1
-                    ) {
-                      paginate(1);
-                    } else if (swipe > swipeConfidenceThreshold && slide > 0) {
-                      paginate(-1);
-                    }
-                  }}
-                />
-              </AnimatePresence>
-            </div>
+                  if (
+                    swipe < -swipeConfidenceThreshold &&
+                    slide < images.length - 1
+                  ) {
+                    paginate(1);
+                  } else if (swipe > swipeConfidenceThreshold && slide > 0) {
+                    paginate(-1);
+                  }
+                }}
+              >
+                <Image
+                  className="object-cover"
+                  key={idx}
+                  src={image.attributes.hash}
+                  alt={image.attributes.alternativeText}
+                  height={
+                    (image.attributes.height * window.screen.width) /
+                    image.attributes.width
+                  }
+                  width={window.screen.width}
+                  placeholder="blur"
+                  blurDataURL={image.attributes.placeholder}
+                ></Image>
+              </motion.div>
+            </AnimatePresence>
           )
       )}
     </section>
