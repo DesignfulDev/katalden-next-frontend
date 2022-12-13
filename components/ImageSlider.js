@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function ImageSlider({ images }) {
   const [[slide, direction], setSlide] = useState([0, 0]);
-  const sliderMaxIdx = images.length;
+  const sliderMaxIdx = images.length - 1;
 
   const paginate = newDirection => {
     setSlide([slide + newDirection, newDirection]);
@@ -50,7 +50,7 @@ export default function ImageSlider({ images }) {
           </button>
         </div>
       )}
-      {slide < sliderMaxIdx - 1 && (
+      {slide < sliderMaxIdx && (
         <div
           onClick={() => paginate(1)}
           className="absolute right-0 z-30 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
@@ -89,7 +89,7 @@ export default function ImageSlider({ images }) {
 
                   if (
                     swipe < -swipeConfidenceThreshold &&
-                    slide < images.length - 1
+                    slide < sliderMaxIdx
                   ) {
                     paginate(1);
                   } else if (swipe > swipeConfidenceThreshold && slide > 0) {
