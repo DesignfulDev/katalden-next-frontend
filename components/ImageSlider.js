@@ -4,22 +4,29 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function ImageSlider({ images }) {
-  const [[slide, direction], setSlide] = useState([0, 0]);
+  const [slide, setSlide] = useState(0);
+  const [swipeDirection, setSwipeDirection] = useState(0);
   const sliderMaxIdx = images.length - 1;
 
-  const paginate = newDirection => {
-    setSlide([slide + newDirection, newDirection]);
-  };
-
-  const swipeConfidenceThreshold = 10000;
+  const swipeThreshold = 10000;
   const swipePower = (offset, velocity) => {
     return Math.abs(offset) * velocity;
   };
 
+  const paginate = newSwipeDirection => {
+    const isSwipeable =
+      (newSwipeDirection > 0 && slide < sliderMaxIdx) ||
+      (newSwipeDirection < 0 && slide > 0);
+
+    setSwipeDirection(newSwipeDirection);
+
+    if (isSwipeable) setSlide(slide + newSwipeDirection);
+  };
+
   const variants = {
-    enter: direction => {
+    enter: swipeDirection => {
       return {
-        x: direction > 0 ? 1000 : -1000,
+        x: swipeDirection * 1000,
         opacity: 0.6,
         scale: 0.6,
       };
@@ -29,9 +36,9 @@ export default function ImageSlider({ images }) {
       opacity: 1,
       scale: 1,
     },
-    exit: direction => {
+    exit: swipeDirection => {
       return {
-        x: direction < 0 ? 1000 : -1000,
+        x: swipeDirection * 1000,
         opacity: 0.6,
         scale: 0.6,
       };
@@ -64,11 +71,11 @@ export default function ImageSlider({ images }) {
       {images.map(
         (image, idx) =>
           idx === slide && (
-            <AnimatePresence mode="popLayout" custom={direction} key={idx}>
+            <AnimatePresence mode="popLayout" custom={swipeDirection} key={idx}>
               <motion.div
                 key={idx}
                 className="relative flex max-h-[60vh]"
-                custom={direction}
+                custom={swipeDirection}
                 variants={variants}
                 initial="enter"
                 animate="center"
@@ -80,21 +87,15 @@ export default function ImageSlider({ images }) {
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.4}
+                dragElastic={0.3}
                 whileDrag={{
                   scale: 0.6,
                 }}
                 onDragEnd={(e, { offset, velocity }) => {
                   const swipe = swipePower(offset.x, velocity.x);
 
-                  if (
-                    swipe < -swipeConfidenceThreshold &&
-                    slide < sliderMaxIdx
-                  ) {
-                    paginate(1);
-                  } else if (swipe > swipeConfidenceThreshold && slide > 0) {
-                    paginate(-1);
-                  }
+                  if (swipe < -swipeThreshold) paginate(1);
+                  if (swipe > +swipeThreshold) paginate(-1);
                 }}
               >
                 <Image
