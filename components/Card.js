@@ -24,7 +24,7 @@ const Item = ({ className, label, children }) => {
 };
 
 const Description = ({ className, children }) => {
-  const classes = '' + className;
+  const classes = 'mb-8 ' + className;
 
   return <p className={classes}>{children}</p>;
 };
