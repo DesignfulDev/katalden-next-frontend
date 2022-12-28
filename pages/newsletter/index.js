@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import Layout from '../../components/Layout';
 import Copyright from '../../components/Copyright';
