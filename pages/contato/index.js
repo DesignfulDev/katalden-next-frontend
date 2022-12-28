@@ -83,6 +83,7 @@ export default function ContactPage() {
         >
           <div className="">
             <input
+              className="w-full px-4 py-2 mb-4 border-2 rounded-full border-brand bg-brand-white placeholder:italic placeholder:text-gray-400"
               type="text"
               name="nome"
               id="nome"
@@ -92,6 +93,7 @@ export default function ContactPage() {
             />
 
             <input
+              className="w-full px-4 py-2 mb-4 border-2 rounded-full border-brand bg-brand-white placeholder:italic placeholder:text-gray-400"
               type="email"
               name="email"
               id="email"
@@ -108,7 +110,7 @@ export default function ContactPage() {
               as="div"
             >
               <div className="relative mt-1">
-                <Listbox.Button className="relative border-2 border-brand bg-brand-white rounded-full py-2 px-4 mb-4 w-full text-left">
+                <Listbox.Button className="relative w-full px-4 py-2 mb-4 text-left border-2 rounded-full border-brand bg-brand-white">
                   <span
                     className={`block truncate ${
                       formValues.assunto.id === 0
@@ -118,9 +120,9 @@ export default function ContactPage() {
                   >
                     {formValues.assunto.option}
                   </span>
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <SelectorIcon
-                      className="h-5 w-5 text-brand"
+                      className="w-5 h-5 text-brand"
                       aria-hidden="true"
                     />
                   </span>
@@ -135,7 +137,7 @@ export default function ContactPage() {
                   leaveFrom="opacity-100 translate-y-0"
                   leaveTo="opacity-0 translate-y-[-3rem]"
                 >
-                  <Listbox.Options className="absolute -mt-3 ml-5 max-h-60 overflow-auto rounded-md bg-white py-2 px-6 shadow-lg">
+                  <Listbox.Options className="absolute px-6 py-2 ml-5 -mt-3 overflow-auto bg-white rounded-md shadow-lg max-h-60">
                     {options.slice(1).map(opt => (
                       <Listbox.Option
                         key={opt.id}
@@ -160,7 +162,7 @@ export default function ContactPage() {
                             {selected ? (
                               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-dark">
                                 <CheckIcon
-                                  className="h-5 w-5"
+                                  className="w-5 h-5"
                                   aria-hidden="true"
                                 />
                               </span>
@@ -175,6 +177,7 @@ export default function ContactPage() {
             </Listbox>
 
             <textarea
+              className="w-full p-4 border-2 rounded-3xl border-brand bg-brand-white placeholder:italic"
               name="mensagem"
               id="mensagem"
               onChange={handleInputChange}
