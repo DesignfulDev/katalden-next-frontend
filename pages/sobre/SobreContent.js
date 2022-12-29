@@ -26,6 +26,8 @@ export default function SobreContent({ content }) {
                   alt={images[idx].attributes.alternativeText}
                   layout="fill"
                   objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL={images[idx].attributes.placeholder}
                 />
               </div>
             ) : null}
