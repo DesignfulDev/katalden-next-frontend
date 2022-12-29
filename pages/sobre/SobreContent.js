@@ -1,48 +1,36 @@
 import Image from 'next/image';
 
-export default function SobreContent() {
+export default function SobreContent({ content }) {
+  const paragraphs = content.attributes.descricao
+    .split('\n')
+    .filter(p => p !== '');
+
+  const { data: images } = content.attributes.imagens;
+
   return (
     <section className="w-full mt-16">
-      <p className="text-xl font-light pb-5 px-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        dolores odio ut, facilis temporibus mollitia tempora quidem sit dolorum
-        dolorem voluptatibus delectus sint totam praesentium consequuntur
-        aliquam id porro aliquid quae at repellat eveniet numquam. Explicabo a
-        dolores sint nemo, nulla tempore recusandae, reiciendis hic expedita
-        repudiandae ad ratione earum.
-      </p>
+      {paragraphs &&
+        paragraphs.map((paragraph, idx) => (
+          <div key={idx}>
+            <p key={paragraph} className="px-8 pb-5 text-xl font-light">
+              {paragraph}
+            </p>
 
-      <div className="w-full aspect-square relative my-4">
-        <Image
-          src="/images/sample/about/about-1.jpg"
-          alt="lorem picsum"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
-
-      <p className="text-xl font-light pb-5 px-8">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit odio
-        delectus ipsum quis id architecto atque sed, laborum tenetur, repellat
-        similique in laboriosam? Aperiam, ex vitae maiores incidunt sint totam.
-      </p>
-
-      <p className="text-xl font-light pb-4 px-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta officiis
-        quia dolorem? At cum laudantium libero perferendis pariatur rerum
-        dolorum vel ipsa eligendi eum esse, magni ipsum in dolor, commodi sit
-        doloremque magnam officia iste nulla non aspernatur atque aliquid
-        delectus! Ad distinctio nam mollitia libero fuga nihil quod quo?
-      </p>
-
-      <div className="w-full aspect-square relative my-4">
-        <Image
-          src="/images/sample/about/about-2.jpg"
-          alt="lorem picsum"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+            {images && images[idx] ? (
+              <div
+                key={images[idx].id}
+                className="relative w-full my-4 aspect-square"
+              >
+                <Image
+                  src={images[idx].attributes.hash}
+                  alt={images[idx].attributes.alternativeText}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            ) : null}
+          </div>
+        ))}
     </section>
   );
 }
