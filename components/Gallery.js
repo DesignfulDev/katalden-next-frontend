@@ -9,10 +9,25 @@ import Image from 'next/image';
 
 export default function Gallery({ projects, cardFields }) {
   const galleries = [
-    { path: '/tattoos', display: 'tattoo' },
-    { path: '/artes-visuais', display: 'artes visuais' },
-    { path: '/roupas', display: 'roupas' },
-  ];
+  {
+    path: '/tattoos',
+    display: 'tattoo',
+    cta: 'agendar tattoo',
+    formPreFill: 'agendamento',
+  },
+  {
+    path: '/artes-visuais',
+    display: 'artes visuais',
+    cta: 'mais informações',
+    formPreFill: 'fotografia',
+  },
+  {
+    path: '/roupas',
+    display: 'roupas',
+    cta: 'comprar peça',
+    formPreFill: 'colab',
+  },
+];
 
   const router = useRouter();
 
@@ -44,6 +59,8 @@ export default function Gallery({ projects, cardFields }) {
                 projects.filter(project => project.id === +router.query.id)[0]
               }
               cardFields={cardFields}
+              cta={galleries[activeGallery].cta}
+              formPreFill={galleries[activeGallery].formPreFill}
             />
           </Modal>
         )}

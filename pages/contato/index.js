@@ -1,4 +1,5 @@
 import { useState, Fragment } from 'react';
+import { useRouter } from 'next/router';
 import { Listbox, Transition } from '@headlessui/react';
 import { SelectorIcon, CheckIcon } from '@heroicons/react/outline';
 import toast, { Toaster } from 'react-hot-toast';
@@ -15,11 +16,15 @@ const options = [
 ];
 
 export default function ContactPage() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState({
     nome: '',
     email: '',
     mensagem: '',
-    assunto: options[0],
+    assunto:
+      options[options.findIndex(opt => opt.value === router.query.assunto)] ||
+      options[0],
   });
 
   const handleSubmit = async e => {
