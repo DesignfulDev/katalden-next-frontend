@@ -7,8 +7,7 @@ import GalleryItem from '../components/GalleryItem';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Gallery({ projects, cardFields }) {
-  const galleries = [
+const galleries = [
   {
     path: '/tattoos',
     display: 'tattoo',
@@ -29,9 +28,56 @@ export default function Gallery({ projects, cardFields }) {
   },
 ];
 
+export default function Gallery({ projects, cardFields }) {
   const router = useRouter();
 
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // SLIDER
+  const [swipeDirection, setSwipeDirection] = useState(0);
+  const [activeGallery, setActiveGallery] = useState(() =>
+    galleries.findIndex(gallery => gallery.path === router.pathname)
+  );
+  const galleryMaxIdx = galleries.length - 1;
+
+  const paginate = newSwipeDirection => {
+    const isSwipeable =
+      (newSwipeDirection > 0 && activeGallery < galleryMaxIdx) ||
+      (newSwipeDirection < 0 && activeGallery > 0);
+
+    setSwipeDirection(newSwipeDirection);
+
+    if (isSwipeable) {
+      router.push(galleries.at(activeGallery + newSwipeDirection).path);
+
+      setActiveGallery(activeGallery + newSwipeDirection);
+    }
+  };
+
+  const swipeThreshold = 1000;
+  const swipePower = (offset, velocity) => {
+    return Math.abs(offset) * velocity;
+  };
+  // SLIDER END
+
+  const variants = {
+    enter: swipeDirection => {
+      return {
+        x: 400,
+        // opacity: 0.6,
+      };
+    },
+    center: {
+      x: 0,
+      // opacity: 1,
+    },
+    exit: swipeDirection => {
+      return {
+        x: -400,
+        // opacity: 0.6,
+      };
+    },
+  };
 
   useEffect(() => router.query.id && setIsOpen(true), [router]);
 
@@ -49,7 +95,7 @@ export default function Gallery({ projects, cardFields }) {
   }, [isOpen]);
 
   return (
-    <div>
+    <div className="h-full overflow-x-hidden">
       {/* MODAL */}
       <AnimatePresence>
         {router.query.id && (
@@ -68,42 +114,60 @@ export default function Gallery({ projects, cardFields }) {
 
       {/* GALLERY NAVIGATION */}
       {galleries.some(gallery => gallery.path === router.pathname) && (
-        <GalleryNav galleries={galleries} />
+        <GalleryNav galleries={galleries} activeGallery={activeGallery} />
       )}
 
       {/* GRID GALLERY */}
-      <motion.section
-        className="pt-2 grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll"
-        initial={{ opacity: 0.6, x: 200 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0.6, x: 200 }}
-      >
-        {projects.length === 0 && <h3>Sem projetos, por enquanto</h3>}
+      <AnimatePresence custom={swipeDirection} mode="popLayout">
+        <motion.section
+          className="pt-2 grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll"
+          custom={swipeDirection}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          layout
+          transition={{
+            x: { type: 'spring', stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 },
+          }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.1}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
 
-        {projects.map(project => (
-          <Link
-            key={project.id}
-            href={`/${router.pathname.slice(1)}?id=${project.id}`}
-            as={`/${router.pathname.slice(1)}/${project.id}`}
-            passHref
-          >
-            <motion.div className="relative object-cover w-full aspect-square">
-              <Image
-                src={project.attributes.imagens.data[0].attributes.hash}
-                alt={
-                  project.attributes.imagens.data[0].attributes.alternativeText
-                }
-                layout="fill"
-                objectFit="cover"
-                placeholder="blur"
-                blurDataURL={
-                  project.attributes.imagens.data[0].attributes.placeholder
-                }
-              ></Image>
-            </motion.div>
-          </Link>
-        ))}
-      </motion.section>
+            if (swipe < -swipeThreshold) paginate(1);
+            if (swipe > +swipeThreshold) paginate(-1);
+          }}
+        >
+          {projects.length === 0 && <h3>Sem projetos, por enquanto</h3>}
+
+          {projects.map(project => (
+            <Link
+              key={project.id}
+              href={`/${router.pathname.slice(1)}?id=${project.id}`}
+              as={`/${router.pathname.slice(1)}/${project.id}`}
+              passHref
+            >
+              <motion.div className="relative object-cover w-full aspect-square">
+                <Image
+                  src={project.attributes.imagens.data[0].attributes.hash}
+                  alt={
+                    project.attributes.imagens.data[0].attributes
+                      .alternativeText
+                  }
+                  layout="fill"
+                  objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL={
+                    project.attributes.imagens.data[0].attributes.placeholder
+                  }
+                ></Image>
+              </motion.div>
+            </Link>
+          ))}
+        </motion.section>
       </AnimatePresence>
       <Link href="/contato?assunto=agendamento">
         <a className="fixed self-center py-3 text-lg lowercase translate-x-[-50%] rounded-full left-1/2 bottom-6 md:flex px-7 bg-brand hover:bg-brand-light active:bg-brand-dark text-brand-white">
