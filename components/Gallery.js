@@ -87,6 +87,12 @@ export default function Gallery({ projects, cardFields }) {
           </Link>
         ))}
       </motion.section>
+      </AnimatePresence>
+      <Link href="/contato?assunto=agendamento">
+        <a className="fixed self-center py-3 text-lg lowercase translate-x-[-50%] rounded-full left-1/2 bottom-6 md:flex px-7 bg-brand hover:bg-brand-light active:bg-brand-dark text-brand-white">
+          agendar tattoo
+        </a>
+      </Link>
     </div>
   );
 }

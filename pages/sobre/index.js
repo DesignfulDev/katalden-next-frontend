@@ -1,5 +1,6 @@
 import SobreContent from './SobreContent';
 import Layout from '../../components/Layout';
+import BtnPrimary from '../../components/BtnPrimary';
 import Copyright from '../../components/Copyright';
 import { API_URL } from '../../config/index';
 
@@ -9,7 +10,10 @@ export default function SobrePage({ data }) {
       <div className="flex flex-col items-center bg-brand-white">
         <h1 className="text-3xl font-thin lowercase">sobre mim</h1>
         <SobreContent content={data} />
-
+        <BtnPrimary
+          btnText="agendar tattoo"
+          linkTo="/contato?assunto=agendamento"
+        />
         <Copyright />
       </div>
     </Layout>
