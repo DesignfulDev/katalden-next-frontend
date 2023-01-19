@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Modal from './Modal';
 import GalleryNav from './GalleryNav';
 import GalleryItem from '../components/GalleryItem';
+import BtnPrimary from '../components/BtnPrimary';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -169,11 +170,11 @@ export default function Gallery({ projects, cardFields }) {
           ))}
         </motion.section>
       </AnimatePresence>
-      <Link href="/contato?assunto=agendamento">
-        <a className="fixed self-center py-3 text-lg lowercase translate-x-[-50%] rounded-full left-1/2 bottom-6 md:flex px-7 bg-brand hover:bg-brand-light active:bg-brand-dark text-brand-white">
-          agendar tattoo
-        </a>
-      </Link>
+      <BtnPrimary
+        linkTo="/contato?assunto=agendamento"
+        btnText="agendar tattoo"
+        classes="fixed translate-x-[-50%] left-1/2 bottom-6 md:hidden"
+      />
     </div>
   );
 }
