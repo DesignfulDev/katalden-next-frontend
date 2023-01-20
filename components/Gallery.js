@@ -116,7 +116,7 @@ export default function Gallery({ projects, cardFields }) {
       {/* GRID GALLERY */}
       <AnimatePresence custom={swipeDirection} mode="popLayout">
         <motion.section
-          className="pt-2 grid gap-0.5 grid-cols-3 auto-rows-auto w-full overflow-y-scroll"
+          className="grid gap-0.5 md:gap-10 grid-cols-3 auto-rows-auto w-full overflow-y-scroll border-2 border-pink-600 h-full content-start"
           custom={swipeDirection}
           variants={variants}
           initial="enter"
