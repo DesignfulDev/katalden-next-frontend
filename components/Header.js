@@ -1,28 +1,72 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MenuAlt3Icon } from '@heroicons/react/outline';
 import logo from '../public/images/logo-black.svg';
+import GalleryNav from './GalleryNav';
+import BtnPrimary from '../components/BtnPrimary';
+
+const galleries = [
+  {
+    path: '/tattoos',
+    display: 'tattoo',
+    cta: 'agendar tattoo',
+    formPreFill: 'agendamento',
+  },
+  {
+    path: '/artes-visuais',
+    display: 'artes visuais',
+    cta: 'mais informações',
+    formPreFill: 'fotografia',
+  },
+  {
+    path: '/roupas',
+    display: 'roupas',
+    cta: 'comprar peça',
+    formPreFill: 'colab',
+  },
+];
 
 export default function Header({ openModal }) {
+  const router = useRouter();
+
+  const [activeGallery, setActiveGallery] = useState(() =>
+    galleries.findIndex(gallery => gallery.path === router.pathname)
+  );
+  const galleryMaxIdx = galleries.length - 1;
+
   return (
-    <header className="z-10 w-full bg-brand-white">
-      <div className="flex items-center justify-between w-full h-20">
+    <header className="z-10 w-full border-2 border-blue-600 bg-brand-white md:row-span-1 md:col-span-full">
+      <div className="grid items-center justify-between w-full h-full grid-cols-5 grid-rows-2 border-2 border-red-500 md:h-full">
         <Link href="/tattoos">
-          <a className="relative w-20 h-12 p-1 mb-2 ml-3">
+          <a className="relative col-span-1 row-span-1 border-2 border-green-700 h-5/6 md:w-auto md:row-span-full md:h-1/2">
             <Image
               loader={({ src }) => src}
               src={logo}
               alt="Logo"
-              width={80}
-              height={58}
+              layout="fill"
+              objectFit="contain"
               priority={true}
             />
           </a>
         </Link>
 
-        <button onClick={openModal}>
-          <MenuAlt3Icon className="fixed top-0 right-0 w-12 h-12 pt-3 pr-3" />
+        <button
+          onClick={openModal}
+          className="col-start-5 border-2 justify-self-end md:hidden border-cyan-300"
+        >
+          <MenuAlt3Icon className="w-12 h-12 p-1" />
         </button>
+
+        <div className="flex h-full col-span-5 border-2 border-yellow-600 md:w-auto md:col-span-3 md:row-span-full">
+          <GalleryNav galleries={galleries} activeGallery={activeGallery} />
+        </div>
+        <BtnPrimary
+          linkTo="/contato?assunto=agendamento"
+          btnText="agendar tattoo"
+          classes="hidden md:flex md:row-span-full"
+        />
       </div>
     </header>
   );

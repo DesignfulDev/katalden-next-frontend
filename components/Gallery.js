@@ -113,11 +113,6 @@ export default function Gallery({ projects, cardFields }) {
         )}
       </AnimatePresence>
 
-      {/* GALLERY NAVIGATION */}
-      {galleries.some(gallery => gallery.path === router.pathname) && (
-        <GalleryNav galleries={galleries} activeGallery={activeGallery} />
-      )}
-
       {/* GRID GALLERY */}
       <AnimatePresence custom={swipeDirection} mode="popLayout">
         <motion.section
