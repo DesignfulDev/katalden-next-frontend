@@ -21,7 +21,11 @@ export default function Sidebar({ onClose }) {
       <nav className="flex items-center justify-center w-full grow md:justify-start md:ml-10 md:items-start">
         <ul className="text-3xl font-light tracking-wide text-center lowercase md:text-xl md:text-left md:pl-10 md:font-normal">
           {links.map(link => (
-            <li key={link.url} onClick={handleClose} className="py-4">
+            <li
+              key={link.url}
+              onClick={handleClose}
+              className={link.text === 'galerias' ? 'py-4 md:hidden' : 'py-4'}
+            >
               <Link href={link.url} scroll={false}>
                 <a>{link.text}</a>
               </Link>
