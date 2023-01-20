@@ -27,7 +27,7 @@ export default function Modal({ closeModal, title, children }) {
 
   return (
     <>
-      <Dialog className="fixed inset-0 z-10" onClose={closeModal} open={true}>
+      <Dialog className="fixed inset-0 z-30" onClose={closeModal} open={true}>
         {/* Dialog Overlay */}
         <motion.div
           className="fixed inset-0 md:bg-brand-black/50"
