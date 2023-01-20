@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function GalleryNav({ galleries, activeGallery }) {
   return (
-    <nav className="flex items-center justify-around w-full h-8">
+    <nav className="flex w-full">
       {galleries.map((gallery, idx) => (
         <AnimatePresence key={gallery.path} mode="wait">
-          <div className="flex items-center justify-center w-full h-full">
+          <div className="flex items-end justify-center w-full h-full pb-2 md:items-center md:pb-0">
             <Link
               passHref
               key={gallery.path}
