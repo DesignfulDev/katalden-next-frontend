@@ -165,10 +165,11 @@ export default function Gallery({ projects, cardFields }) {
           ))}
         </motion.section>
       </AnimatePresence>
+      <div className="fixed bottom-0 left-0 right-0 z-10 border-2 border-pink-600 pointer-events-none h-28 bg-gradient-to-b from-transparent to-brand-white md:hidden"></div>
       <BtnPrimary
         linkTo="/contato?assunto=agendamento"
         btnText="agendar tattoo"
-        classes="fixed translate-x-[-50%] left-1/2 bottom-6 md:hidden"
+        classes="fixed translate-x-[-50%] left-1/2 bottom-4 md:hidden"
       />
     </div>
   );
