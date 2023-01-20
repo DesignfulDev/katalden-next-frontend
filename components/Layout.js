@@ -17,7 +17,7 @@ export default function Layout({ title, keywords, description, children }) {
   }
 
   return (
-    <div className="flex flex-col h-screen overflow-y-scroll bg-brand-white text-brand-black">
+    <div className="flex flex-col h-screen overflow-y-scroll bg-brand-white text-brand-black md:grid md:grid-cols-5 md:grid-rows-4">
       <Head>
         <title>{title}</title>
         <meta name="keywords" content={keywords} />
@@ -38,7 +38,11 @@ export default function Layout({ title, keywords, description, children }) {
         )}
       </AnimatePresence>
 
-      <main className="w-full h-full mx-auto overflow-y-auto grow">
+      <div className="hidden col-span-1 row-span-4 md:block">
+        <Sidebar onClose={closeModal} />
+      </div>
+
+      <main className="w-full h-full mx-auto overflow-y-auto grow md:h-auto md:col-span-3 md:row-span-4">
         {children}
       </main>
     </div>
