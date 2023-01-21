@@ -37,10 +37,10 @@ export default function Header({ openModal }) {
   const galleryMaxIdx = galleries.length - 1;
 
   return (
-    <header className="z-10 w-full border-2 border-blue-600 bg-brand-white md:row-span-1 md:col-span-full">
-      <div className="grid items-center justify-between w-full h-full grid-cols-5 grid-rows-2 border-2 border-red-500 md:h-full">
+    <header className="z-10 w-full bg-brand-white md:row-span-1 md:col-span-full">
+      <div className="grid items-center justify-between w-full h-full grid-cols-5 grid-rows-2 md:h-full">
         <Link href="/tattoos">
-          <a className="relative col-span-1 row-span-1 border-2 border-green-700 h-5/6 md:w-auto md:row-span-full md:h-1/2">
+          <a className="relative col-span-1 row-span-1 mt-2 h-5/6 md:w-auto md:row-span-full md:h-1/2">
             <Image
               loader={({ src }) => src}
               src={logo}
@@ -54,12 +54,12 @@ export default function Header({ openModal }) {
 
         <button
           onClick={openModal}
-          className="col-start-5 border-2 justify-self-end md:hidden border-cyan-300"
+          className="col-start-5 justify-self-end md:hidden"
         >
           <MenuAlt3Icon className="w-12 h-12 p-1" />
         </button>
 
-        <div className="flex h-full col-span-5 border-2 border-yellow-600 md:w-auto md:col-span-3 md:row-span-full">
+        <div className="flex h-full col-span-5 md:w-auto md:col-span-3 md:row-span-full">
           <GalleryNav galleries={galleries} activeGallery={activeGallery} />
         </div>
         <BtnPrimary
