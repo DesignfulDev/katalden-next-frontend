@@ -46,7 +46,7 @@ export default function ImageSlider({ images }) {
   };
 
   return (
-    <section className="relative inset-0 w-screen cursor-grab active:cursor-grabbing">
+    <section className="relative inset-0 w-full cursor-grab active:cursor-grabbing">
       {slide > 0 && (
         <div
           onClick={() => paginate(-1)}
