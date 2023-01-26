@@ -5,7 +5,7 @@ import BtnPrimary from './BtnPrimary';
 
 export default function GalleryItem({ project, cardFields, cta, formPreFill }) {
   return (
-    <Card>
+    <Card className="h-screen flex flex-col md:h-[80vh] md:py-20 md:px-28">
       <ImageSlider images={project.attributes.imagens.data} />
 
       <section className="text-xl font-thin text-left p-7">
