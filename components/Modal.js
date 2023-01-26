@@ -30,7 +30,7 @@ export default function Modal({ closeModal, title, children }) {
       <Dialog className="fixed inset-0 z-30" onClose={closeModal} open={true}>
         {/* Dialog Overlay */}
         <motion.div
-          className="fixed inset-0 md:bg-brand-black/50"
+          className="fixed inset-0 md:supports-backdrop:backdrop-blur-md md:bg-brand-black/50"
           aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{
@@ -51,7 +51,7 @@ export default function Modal({ closeModal, title, children }) {
 
         <div className="flex flex-col items-center justify-center min-h-full">
           <Dialog.Panel
-            className="z-10 flex flex-col w-screen bg-brand-white supports-backdrop:bg-brand-white/70 supports-backdrop:backdrop-blur-md"
+            className="z-10 flex flex-col w-screen bg-brand-white supports-backdrop:bg-brand-white/70 supports-backdrop:backdrop-blur-md md:w-4/5 md:rounded-xl overflow-clip"
             as={motion.div}
             variants={variants}
             initial="hidden"
