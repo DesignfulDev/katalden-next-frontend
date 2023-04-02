@@ -10,7 +10,7 @@ export default function GalleryNav({ galleries, activeGallery }) {
             <Link
               passHref
               key={gallery.path}
-              href={gallery.path}
+              href={{ pathname: gallery.path, query: gallery }}
               shallow={true}
             >
               <motion.a
