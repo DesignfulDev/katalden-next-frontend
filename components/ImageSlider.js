@@ -98,20 +98,19 @@ export default function ImageSlider({ images }) {
                   if (swipe > +swipeThreshold) paginate(-1);
                 }}
               >
-                <Image
-                  className="object-cover"
-                  key={idx}
-                  src={image.attributes.hash}
-                  alt={image.attributes.alternativeText}
-                  height={
-                    (image.attributes.height * window.screen.width) /
-                    image.attributes.width
-                  }
-                  width={window.screen.width}
-                  placeholder="blur"
-                  blurDataURL={image.attributes.placeholder}
-                ></Image>
-              </motion.div>
+                  <CldImage
+                    key={idx}
+                    src={image.attributes.hash}
+                    alt={image.attributes.alternativeText}
+                    width={1000}
+                    height={1000}
+                    gravity="auto:subject"
+                    crop="fill"
+                    sizes="100vw"
+                    placeholder="blur"
+                    blurDataURL={image.attributes.placeholder}
+                  ></CldImage>
+                </motion.div>
             </AnimatePresence>
           )
       )}

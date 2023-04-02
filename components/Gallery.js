@@ -6,7 +6,7 @@ import GalleryNav from './GalleryNav';
 import GalleryItem from '../components/GalleryItem';
 import BtnPrimary from '../components/BtnPrimary';
 import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 
 import galleries from '../utils/galleries';
 
@@ -128,19 +128,22 @@ export default function Gallery({ projects, cardFields }) {
               passHref
             >
               <motion.div className="relative object-cover w-full aspect-square">
-                <Image
+                <CldImage
                   src={project.attributes.imagens.data[0].attributes.hash}
                   alt={
                     project.attributes.imagens.data[0].attributes
                       .alternativeText
                   }
-                  layout="fill"
-                  objectFit="cover"
+                  height={800}
+                  width={800}
+                  gravity="auto:subject"
+                  crop="fill"
+                  sizes="33vw"
                   placeholder="blur"
                   blurDataURL={
                     project.attributes.imagens.data[0].attributes.placeholder
                   }
-                ></Image>
+                ></CldImage>
               </motion.div>
             </Link>
           ))}
