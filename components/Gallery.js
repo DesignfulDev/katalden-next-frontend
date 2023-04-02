@@ -8,26 +8,7 @@ import BtnPrimary from '../components/BtnPrimary';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
-const galleries = [
-  {
-    path: '/tattoos',
-    display: 'tattoo',
-    cta: 'agendar tattoo',
-    formPreFill: 'agendamento',
-  },
-  {
-    path: '/artes-visuais',
-    display: 'artes visuais',
-    cta: 'mais informações',
-    formPreFill: 'fotografia',
-  },
-  {
-    path: '/roupas',
-    display: 'roupas',
-    cta: 'comprar peça',
-    formPreFill: 'colab',
-  },
-];
+import galleries from '../utils/galleries';
 
 export default function Gallery({ projects, cardFields }) {
   const router = useRouter();

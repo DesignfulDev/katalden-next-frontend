@@ -6,27 +6,7 @@ import { MenuAlt3Icon } from '@heroicons/react/outline';
 import logo from '../public/images/logo-black.svg';
 import GalleryNav from './GalleryNav';
 import BtnPrimary from '../components/BtnPrimary';
-
-const galleries = [
-  {
-    path: '/tattoos',
-    display: 'tattoo',
-    cta: 'agendar tattoo',
-    formPreFill: 'agendamento',
-  },
-  {
-    path: '/artes-visuais',
-    display: 'artes visuais',
-    cta: 'mais informações',
-    formPreFill: 'fotografia',
-  },
-  {
-    path: '/roupas',
-    display: 'roupas',
-    cta: 'comprar peça',
-    formPreFill: 'colab',
-  },
-];
+import galleries from '../utils/galleries';
 
 export default function Header({ openModal }) {
   const router = useRouter();
