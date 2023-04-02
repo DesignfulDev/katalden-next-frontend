@@ -36,3 +36,4 @@ yarn-error.log*
 /public/images/sample/
 /pages/api/*/
 /pages/api/*.json
+/.VSCodeCounter/
