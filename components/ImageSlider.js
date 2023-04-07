@@ -1,52 +1,55 @@
 import { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
+import useMeasure from 'react-use-measure';
+import usePrevious from '../hooks/usePrevious';
 
 export default function ImageSlider({ images }) {
   const [slide, setSlide] = useState(0);
-  const [swipeDirection, setSwipeDirection] = useState(0);
-  const sliderMaxIdx = images.length - 1;
+  const [ref, { width }] = useMeasure();
+  const prevSlide = usePrevious(slide);
+  const direction = slide > prevSlide ? 1 : -1;
 
-  const swipeThreshold = 10000;
+  const lastSlideIndex = images.length - 1;
+
+  const swipeThreshold = 1000;
   const swipePower = (offset, velocity) => {
     return Math.abs(offset) * velocity;
   };
 
-  const paginate = newSwipeDirection => {
+  const paginate = swipeDirection => {
     const isSwipeable =
-      (newSwipeDirection > 0 && slide < sliderMaxIdx) ||
-      (newSwipeDirection < 0 && slide > 0);
+      (swipeDirection > 0 && slide < lastSlideIndex) ||
+      (swipeDirection < 0 && slide > 0);
 
-    setSwipeDirection(newSwipeDirection);
-
-    if (isSwipeable) setSlide(slide + newSwipeDirection);
+    if (isSwipeable) setSlide(slide + swipeDirection);
   };
 
   const variants = {
-    enter: swipeDirection => {
+    enter: ({ direction, width }) => {
       return {
-        x: swipeDirection * 1000,
-        opacity: 0.6,
-        scale: 0.6,
+        x: direction * width,
+        scale: 0.4,
+        opacity: 0,
       };
     },
     center: {
       x: 0,
-      opacity: 1,
       scale: 1,
+      opacity: 1,
     },
-    exit: swipeDirection => {
+    exit: ({ direction, width }) => {
       return {
-        x: swipeDirection * 1000,
-        opacity: 0.6,
-        scale: 0.6,
+        x: direction * -width,
+        scale: 0.4,
+        opacity: 0,
       };
     },
   };
 
   return (
-    <section className="relative inset-0 w-full cursor-grab active:cursor-grabbing">
+    <section className="relative cursor-grab active:cursor-grabbing">
       {slide > 0 && (
         <div
           onClick={() => paginate(-1)}
@@ -57,7 +60,7 @@ export default function ImageSlider({ images }) {
           </button>
         </div>
       )}
-      {slide < sliderMaxIdx && (
+      {slide < lastSlideIndex && (
         <div
           onClick={() => paginate(1)}
           className="absolute right-0 z-30 flex items-center w-16 h-full px-2 cursor-pointer mix-blend-screen"
@@ -68,36 +71,36 @@ export default function ImageSlider({ images }) {
         </div>
       )}
 
-      {images.map(
-        (image, idx) =>
-          idx === slide && (
-            <AnimatePresence mode="popLayout" custom={swipeDirection} key={idx}>
-              <motion.div
-                key={idx}
-                className="relative flex max-h-[60vh]"
-                custom={swipeDirection}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                layout
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.3}
-                whileDrag={{
-                  scale: 0.6,
-                }}
-                onDragEnd={(e, { offset, velocity }) => {
-                  const swipe = swipePower(offset.x, velocity.x);
+      <div
+        ref={ref}
+        className="relative grid items-center w-full h-[100vw] grid-flow-col grid-rows-1 overflow-hidden bg-rose-300"
+      >
+        <AnimatePresence initial={false} custom={{ direction, width }}>
+          {images.map(
+            (image, idx) =>
+              idx === slide && (
+                <motion.div
+                  key={slide}
+                  className="absolute grid w-full grid-flow-col grid-rows-1"
+                  custom={{ direction, width }}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  layout
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.3}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
 
-                  if (swipe < -swipeThreshold) paginate(1);
-                  if (swipe > +swipeThreshold) paginate(-1);
-                }}
-              >
+                    if (swipe < -swipeThreshold) paginate(1);
+                    if (swipe > +swipeThreshold) paginate(-1);
+                  }}
+                >
                   <CldImage
                     key={idx}
                     src={image.attributes.hash}
@@ -111,9 +114,10 @@ export default function ImageSlider({ images }) {
                     blurDataURL={image.attributes.placeholder}
                   ></CldImage>
                 </motion.div>
-            </AnimatePresence>
-          )
-      )}
+              )
+          )}
+        </AnimatePresence>
+      </div>
     </section>
   );
 }
