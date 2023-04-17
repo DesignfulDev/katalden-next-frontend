@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Modal from './Modal';
-import GalleryNav from './GalleryNav';
 import GalleryItem from '../components/GalleryItem';
 import BtnPrimary from '../components/BtnPrimary';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CldImage } from 'next-cloudinary';
 
+import useMeasure from 'react-use-measure';
+import usePrevious from '../hooks/usePrevious';
 import galleries from '../utils/galleries';
 
 export default function Gallery({ projects, cardFields }) {
@@ -16,23 +17,28 @@ export default function Gallery({ projects, cardFields }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // SLIDER
-  const [swipeDirection, setSwipeDirection] = useState(0);
   const [activeGallery, setActiveGallery] = useState(() =>
     galleries.findIndex(gallery => gallery.path === router.pathname)
   );
+  const [ref, { width }] = useMeasure();
+  const prevGallery = usePrevious(activeGallery);
+  const direction = activeGallery > prevGallery ? 1 : -1;
+
+  // const [swipeDirection, setSwipeDirection] = useState(0);
+
   const galleryMaxIdx = galleries.length - 1;
 
-  const paginate = newSwipeDirection => {
+  const paginate = swipeDirection => {
     const isSwipeable =
-      (newSwipeDirection > 0 && activeGallery < galleryMaxIdx) ||
-      (newSwipeDirection < 0 && activeGallery > 0);
+      (swipeDirection > 0 && activeGallery < galleryMaxIdx) ||
+      (swipeDirection < 0 && activeGallery > 0);
 
-    setSwipeDirection(newSwipeDirection);
+    // setSwipeDirection(swipeDirection);
 
     if (isSwipeable) {
-      router.push(galleries.at(activeGallery + newSwipeDirection).path);
+      router.push(galleries.at(activeGallery + swipeDirection).path);
 
-      setActiveGallery(activeGallery + newSwipeDirection);
+      // setActiveGallery(activeGallery + swipeDirection);
     }
   };
 
@@ -43,9 +49,9 @@ export default function Gallery({ projects, cardFields }) {
   // SLIDER END
 
   const variants = {
-    enter: swipeDirection => {
+    enter: ({ direction, width }) => {
       return {
-        x: 400,
+        x: direction * width,
         // opacity: 0.6,
       };
     },
@@ -53,9 +59,9 @@ export default function Gallery({ projects, cardFields }) {
       x: 0,
       // opacity: 1,
     },
-    exit: swipeDirection => {
+    exit: ({ direction, width }) => {
       return {
-        x: -400,
+        x: direction * -width,
         // opacity: 0.6,
       };
     },
@@ -77,7 +83,7 @@ export default function Gallery({ projects, cardFields }) {
   }, [isOpen]);
 
   return (
-    <div className="h-full overflow-x-hidden">
+    <div ref={ref} className="h-full overflow-x-hidden">
       {/* MODAL */}
       <AnimatePresence>
         {router.query.id && (
@@ -95,10 +101,10 @@ export default function Gallery({ projects, cardFields }) {
       </AnimatePresence>
 
       {/* GRID GALLERY */}
-      <AnimatePresence custom={swipeDirection} mode="popLayout">
+      <AnimatePresence custom={{ direction, width }}>
         <motion.section
           className="grid gap-0.5 md:gap-10 grid-cols-3 auto-rows-auto w-full overflow-y-scroll h-full content-start"
-          custom={swipeDirection}
+          custom={{ direction, width }}
           variants={variants}
           initial="enter"
           animate="center"
