@@ -55,9 +55,11 @@ export default function Gallery({ projects, cardFields }) {
         // opacity: 0.6,
       };
     },
-    center: {
-      x: 0,
-      // opacity: 1,
+    center: ({ direction, width }) => {
+      return {
+        x: 0,
+        // opacity: 1,
+      };
     },
     exit: ({ direction, width }) => {
       return {
@@ -103,6 +105,7 @@ export default function Gallery({ projects, cardFields }) {
       {/* GRID GALLERY */}
       <AnimatePresence custom={{ direction, width }}>
         <motion.section
+          key={activeGallery}
           className="grid gap-0.5 md:gap-10 grid-cols-3 auto-rows-auto w-full overflow-y-scroll h-full content-start"
           custom={{ direction, width }}
           variants={variants}
